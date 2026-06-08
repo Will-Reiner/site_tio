@@ -1,0 +1,42 @@
+---
+interface Props {
+  texto: string;
+  autor: string;
+  cargo?: string;
+  variante?: "claro" | "escuro";
+  class?: string;
+}
+const { texto, autor, cargo, variante = "claro", class: klass = "" } =
+  Astro.props;
+const escuro = variante === "escuro";
+---
+
+<figure
+  class:list={[
+    "relative mx-auto max-w-3xl text-center",
+    escuro ? "text-creme" : "text-tinta",
+    klass,
+  ]}
+>
+  <div
+    class="font-display text-7xl leading-none text-rosa sm:text-8xl"
+    aria-hidden="true"
+  >
+    &ldquo;
+  </div>
+  <blockquote
+    class="-mt-7 text-balance font-display text-2xl font-extrabold leading-tight sm:text-3xl md:text-[2.5rem]"
+  >
+    {texto}
+  </blockquote>
+  <figcaption class="mt-7 flex flex-col items-center">
+    <span class="font-assinatura text-4xl leading-none text-rosa sm:text-5xl"
+      >{autor}</span
+    >
+    {
+      cargo && (
+        <span class="mt-2 text-sm font-medium opacity-70">{cargo}</span>
+      )
+    }
+  </figcaption>
+</figure>

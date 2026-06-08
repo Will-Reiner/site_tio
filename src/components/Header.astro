@@ -1,0 +1,134 @@
+---
+import { NAV, CTA } from "../data/site.ts";
+import Botao from "./Botao.astro";
+import Icon from "./Icon.astro";
+
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === "/" ? path === "/" : path.startsWith(href);
+---
+
+<header
+  class="sticky top-0 z-50 border-b-2 border-tinta bg-creme/95 backdrop-blur supports-[backdrop-filter]:bg-creme/80"
+>
+  <div
+    class="mx-auto flex max-w-7xl items-center justify-between gap-3 px-5 py-3 lg:px-8"
+  >
+    <!-- Wordmark -->
+    <a
+      href="/"
+      class="flex shrink-0 items-center gap-2.5"
+      aria-label="Eduardo Reiner — página inicial"
+    >
+      <span
+        class="grid h-10 w-10 -rotate-[4deg] place-items-center rounded-xl bg-rosa font-display text-base font-extrabold text-creme shadow-[2px_2px_0_0_var(--color-tinta)]"
+        >ER</span
+      >
+      <span
+        class="font-display text-base font-extrabold leading-none tracking-tight sm:text-lg"
+        >Eduardo Reiner</span
+      >
+    </a>
+
+    <!-- Navegação (desktop) -->
+    <nav class="hidden items-center gap-1 lg:flex" aria-label="Principal">
+      {
+        NAV.map((item) => (
+          <a
+            href={item.href}
+            aria-current={isActive(item.href) ? "page" : undefined}
+            class:list={[
+              "relative px-3 py-2 font-display text-sm font-semibold uppercase tracking-wide transition-colors hover:text-rosa",
+              isActive(item.href) ? "text-rosa" : "text-tinta",
+            ]}
+          >
+            {item.label}
+            {isActive(item.href) && (
+              <span class="absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-rosa" />
+            )}
+          </a>
+        ))
+      }
+    </nav>
+
+    <!-- Ações -->
+    <div class="flex items-center gap-2">
+      <span class="hidden sm:inline-flex">
+        <Botao
+          href={CTA.whatsapp.href}
+          variante="whatsapp"
+          tamanho="sm"
+          icone="whatsapp">{CTA.whatsapp.labelCurto}</Botao
+        >
+      </span>
+      <Botao href={CTA.doar.href} variante="rosa" tamanho="sm"
+        >{CTA.doar.labelCurto}</Botao
+      >
+      <button
+        id="abrir-menu"
+        type="button"
+        class="btn-press grid h-10 w-10 place-items-center rounded-xl border-2 border-tinta lg:hidden"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+        aria-controls="menu-mobile"
+      >
+        <Icon name="menu" size={22} />
+      </button>
+    </div>
+  </div>
+
+  <!-- Menu (mobile) -->
+  <div id="menu-mobile" hidden class="border-t-2 border-tinta bg-creme lg:hidden">
+    <nav
+      class="mx-auto flex max-w-7xl flex-col gap-1 px-5 py-4"
+      aria-label="Principal (mobile)"
+    >
+      {
+        NAV.map((item) => (
+          <a
+            href={item.href}
+            aria-current={isActive(item.href) ? "page" : undefined}
+            class:list={[
+              "rounded-xl px-4 py-3 font-display text-lg font-bold uppercase tracking-wide",
+              isActive(item.href)
+                ? "bg-rosa text-creme"
+                : "hover:bg-creme-200",
+            ]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <div class="mt-3 flex flex-col gap-2">
+        <Botao
+          href={CTA.whatsapp.href}
+          variante="whatsapp"
+          tamanho="md"
+          icone="whatsapp">{CTA.whatsapp.label}</Botao
+        >
+        <Botao href={CTA.doar.href} variante="rosa" tamanho="md"
+          >{CTA.doar.label}</Botao
+        >
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById("abrir-menu");
+  const menu = document.getElementById("menu-mobile");
+  if (btn && menu) {
+    const setOpen = (open) => {
+      menu.hidden = !open;
+      btn.setAttribute("aria-expanded", String(open));
+      btn.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
+    };
+    btn.addEventListener("click", () => setOpen(menu.hidden));
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") setOpen(false);
+    });
+    menu
+      .querySelectorAll("a")
+      .forEach((a) => a.addEventListener("click", () => setOpen(false)));
+  }
+</script>

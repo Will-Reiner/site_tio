@@ -1,0 +1,56 @@
+---
+import Icon from "./Icon.astro";
+
+interface Props {
+  titulo: string;
+  resumo: string;
+  numero: number;
+  cor?: "rosa" | "azul" | "ambar" | "tinta";
+  href?: string;
+  class?: string;
+}
+const {
+  titulo,
+  resumo,
+  numero,
+  cor = "rosa",
+  href = "/propostas/",
+  class: klass = "",
+} = Astro.props;
+
+const c: Record<string, { bg: string; num: string; numHover: string; txt: string }> = {
+  rosa: { bg: "hover:bg-rosa", num: "text-rosa", numHover: "group-hover:text-creme", txt: "hover:text-creme" },
+  azul: { bg: "hover:bg-azul", num: "text-azul", numHover: "group-hover:text-creme", txt: "hover:text-creme" },
+  ambar: { bg: "hover:bg-ambar", num: "text-ambar", numHover: "group-hover:text-tinta", txt: "hover:text-tinta" },
+  tinta: { bg: "hover:bg-tinta", num: "text-tinta", numHover: "group-hover:text-creme", txt: "hover:text-creme" },
+};
+const cc = c[cor];
+const num = String(numero).padStart(2, "0");
+---
+
+<a
+  href={href}
+  class:list={[
+    "group relative flex flex-col rounded-3xl border-2 border-tinta bg-creme p-7 transition duration-200 hover:-translate-y-1 hover:shadow-zine",
+    cc.bg,
+    cc.txt,
+    klass,
+  ]}
+>
+  <div class="flex items-start justify-between">
+    <span
+      class:list={[
+        "font-display text-4xl font-extrabold leading-none transition-colors sm:text-5xl",
+        cc.num,
+        cc.numHover,
+      ]}>{num}</span
+    >
+    <Icon
+      name="seta-diagonal"
+      size={22}
+      class="transition-transform duration-200 group-hover:rotate-45"
+    />
+  </div>
+  <h3 class="mt-6 text-2xl font-extrabold leading-tight">{titulo}</h3>
+  <p class="mt-3 text-sm leading-relaxed opacity-80">{resumo}</p>
+</a>

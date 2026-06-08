@@ -1,0 +1,19 @@
+# Build
+dist/
+.astro/
+
+# Dependências
+node_modules/
+
+# Pré-visualizações e ferramentas locais (screenshots de QA)
+.preview/
+
+# Sistema
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+
+# Variáveis de ambiente
+.env
+.env.production

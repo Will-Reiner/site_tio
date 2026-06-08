@@ -1,0 +1,99 @@
+---
+import { Image } from "astro:assets";
+import Icon from "./Icon.astro";
+
+interface Props {
+  titulo: string;
+  veiculo: string;
+  data: string;
+  url: string;
+  resumo: string;
+  imagem?: ImageMetadata;
+  destaque?: boolean;
+  class?: string;
+}
+const {
+  titulo,
+  veiculo,
+  data,
+  url,
+  resumo,
+  imagem,
+  destaque = false,
+  class: klass = "",
+} = Astro.props;
+const externo = !!url && url !== "#";
+---
+
+<article
+  class:list={[
+    "group flex overflow-hidden rounded-3xl border-2 border-tinta bg-creme transition duration-200 hover:-translate-y-1 hover:shadow-zine",
+    destaque ? "flex-col md:flex-row" : "flex-col",
+    klass,
+  ]}
+>
+  {
+    imagem && (
+      <div
+        class:list={[
+          "relative shrink-0 overflow-hidden bg-creme-200",
+          destaque
+            ? "border-b-2 border-tinta md:w-1/2 md:border-b-0 md:border-r-2"
+            : "border-b-2 border-tinta",
+        ]}
+      >
+        <Image
+          src={imagem}
+          alt={`Eduardo Reiner — ${titulo}`}
+          sizes="(max-width: 768px) 92vw, 520px"
+          class="h-full w-full object-cover"
+          style="aspect-ratio: 4 / 3"
+        />
+        <span class="absolute left-4 top-4 rounded-full bg-rosa px-3 py-1 font-display text-xs font-bold uppercase tracking-wide text-creme">
+          Imprensa
+        </span>
+      </div>
+    )
+  }
+  <div class="flex flex-1 flex-col p-6">
+    <div
+      class="flex flex-wrap items-center gap-2 font-display text-xs font-bold uppercase tracking-wide text-rosa"
+    >
+      <span>{veiculo}</span>
+      <span class="text-tinta/30">·</span>
+      <span class="text-tinta/55">{data}</span>
+    </div>
+    <h3
+      class:list={[
+        "mt-3 font-extrabold leading-tight",
+        destaque ? "text-2xl sm:text-3xl" : "text-xl",
+      ]}
+    >
+      {titulo}
+    </h3>
+    <p class="mt-2 text-sm leading-relaxed text-tinta/75">{resumo}</p>
+    <div class="mt-auto pt-5">
+      {
+        externo ? (
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 font-display text-sm font-bold text-tinta transition-colors hover:text-rosa"
+          >
+            Ler matéria
+            <Icon
+              name="seta-diagonal"
+              size={16}
+              class="transition-transform group-hover:translate-x-0.5"
+            />
+          </a>
+        ) : (
+          <span class="inline-flex items-center gap-2 font-display text-sm font-bold text-tinta/40">
+            Link em breve
+          </span>
+        )
+      }
+    </div>
+  </div>
+</article>

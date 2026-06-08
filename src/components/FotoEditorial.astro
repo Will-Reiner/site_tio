@@ -1,0 +1,67 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  cor?: "rosa" | "azul" | "ambar" | "tinta";
+  rotacao?: number; // graus de inclinação (estilo zine)
+  aspecto?: string; // ex.: "4 / 5", "1 / 1", "3 / 4"
+  prioridade?: boolean;
+  class?: string;
+  sizes?: string;
+}
+
+const {
+  src,
+  alt,
+  cor = "rosa",
+  rotacao = -2,
+  aspecto = "4 / 5",
+  prioridade = false,
+  class: klass = "",
+  sizes = "(max-width: 768px) 88vw, 460px",
+} = Astro.props;
+
+const corDot: Record<string, string> = {
+  rosa: "text-rosa",
+  azul: "text-azul",
+  ambar: "text-ambar",
+  tinta: "text-tinta",
+};
+const sombra: Record<string, string> = {
+  rosa: "shadow-[8px_8px_0_0_var(--color-rosa)]",
+  azul: "shadow-[8px_8px_0_0_var(--color-azul)]",
+  ambar: "shadow-[8px_8px_0_0_var(--color-ambar)]",
+  tinta: "shadow-[8px_8px_0_0_var(--color-tinta)]",
+};
+---
+
+<div
+  class:list={["relative", klass]}
+  style={rotacao ? `transform: rotate(${rotacao}deg)` : undefined}
+>
+  <div
+    class:list={[
+      "pontos pointer-events-none absolute -right-5 -top-6 h-24 w-24 opacity-70",
+      corDot[cor],
+    ]}
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class:list={[
+      "relative overflow-hidden rounded-2xl border-2 border-tinta bg-creme-200",
+      sombra[cor],
+    ]}
+    style={`aspect-ratio:${aspecto}`}
+  >
+    <Image
+      src={src}
+      alt={alt}
+      sizes={sizes}
+      loading={prioridade ? "eager" : "lazy"}
+      class="h-full w-full object-cover"
+    />
+  </div>
+</div>

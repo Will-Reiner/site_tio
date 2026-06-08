@@ -1,0 +1,41 @@
+---
+import { CTA } from "../data/site.ts";
+import Botao from "./Botao.astro";
+
+interface Props {
+  titulo?: string;
+  texto?: string;
+}
+const {
+  titulo = "Vem fazer parte dessa caminhada",
+  texto = "Entre na minha comunidade no WhatsApp para receber as novidades em primeira mão — e apoie a minha pré-campanha em defesa do trabalho.",
+} = Astro.props;
+---
+
+<section class="relative overflow-hidden bg-rosa text-creme">
+  <div
+    class="halftone pointer-events-none absolute inset-0 text-rosa-escuro opacity-40"
+    aria-hidden="true"
+  >
+  </div>
+  <div class="relative mx-auto max-w-5xl px-5 py-16 text-center lg:px-8 lg:py-20">
+    <h2 class="text-balance text-4xl font-extrabold leading-tight sm:text-5xl">
+      {titulo}
+    </h2>
+    <p class="mx-auto mt-5 max-w-xl text-lg text-creme/90">{texto}</p>
+    <div class="mt-9 flex flex-wrap justify-center gap-3">
+      <Botao
+        href={CTA.whatsapp.href}
+        variante="whatsapp"
+        tamanho="lg"
+        icone="whatsapp">{CTA.whatsapp.label}</Botao
+      >
+      <Botao
+        href={CTA.doar.href}
+        variante="creme"
+        tamanho="lg"
+        iconeFim="seta-direita">{CTA.doar.label}</Botao
+      >
+    </div>
+  </div>
+</section>

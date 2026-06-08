@@ -1,0 +1,59 @@
+---
+import Icon from "./Icon.astro";
+
+interface Props {
+  href?: string;
+  variante?: "rosa" | "tinta" | "creme" | "contorno" | "azul" | "whatsapp";
+  tamanho?: "sm" | "md" | "lg";
+  icone?: string; // ícone à esquerda
+  iconeFim?: string; // ícone à direita
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  href,
+  variante = "rosa",
+  tamanho = "md",
+  icone,
+  iconeFim,
+  class: klass = "",
+  ...rest
+} = Astro.props;
+
+const base =
+  "btn-press group inline-flex items-center justify-center gap-2 rounded-full border-2 border-tinta font-display font-bold uppercase tracking-wide leading-none hover:-translate-y-0.5";
+
+const variantes: Record<string, string> = {
+  rosa: "bg-rosa text-creme hover:bg-rosa-escuro",
+  tinta: "bg-tinta text-creme hover:bg-tinta-suave",
+  creme: "bg-creme text-tinta hover:bg-creme-200",
+  contorno: "bg-transparent text-tinta hover:bg-tinta hover:text-creme",
+  azul: "bg-azul text-creme hover:brightness-110",
+  whatsapp: "bg-[#25D366] text-tinta hover:brightness-105",
+};
+
+const tamanhos: Record<string, string> = {
+  sm: "px-4 py-2 text-[0.72rem]",
+  md: "px-6 py-3 text-[0.82rem]",
+  lg: "px-8 py-4 text-sm sm:text-base",
+};
+
+const iconSize = tamanho === "lg" ? 20 : tamanho === "sm" ? 15 : 17;
+const cls = [base, variantes[variante], tamanhos[tamanho], klass].join(" ");
+const Tag = href ? "a" : "button";
+---
+
+<Tag class={cls} href={href} {...rest}>
+  {icone && <Icon name={icone} size={iconSize} />}
+  <span><slot /></span>
+  {
+    iconeFim && (
+      <Icon
+        name={iconeFim}
+        size={iconSize}
+        class="transition-transform duration-200 group-hover:translate-x-0.5"
+      />
+    )
+  }
+</Tag>

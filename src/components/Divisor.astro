@@ -1,0 +1,24 @@
+---
+// Divisor de seção — ornamento "zine": um losango rosa entre dois fios que se
+// esvaem nas pontas. Mais elegante que uma linha cheia. Puramente decorativo.
+interface Props {
+  class?: string;
+}
+const { class: klass = "" } = Astro.props;
+---
+
+<div class:list={["flex items-center gap-4 lg:gap-6", klass]} aria-hidden="true">
+  <span
+    class="h-px flex-1"
+    style="background:linear-gradient(to right, transparent, color-mix(in srgb, var(--color-tinta) 22%, transparent))"
+  ></span>
+  <span class="flex items-center gap-2.5 text-rosa">
+    <span class="h-1 w-1 rounded-full bg-current opacity-40"></span>
+    <span class="h-2.5 w-2.5 rotate-45 bg-current"></span>
+    <span class="h-1 w-1 rounded-full bg-current opacity-40"></span>
+  </span>
+  <span
+    class="h-px flex-1"
+    style="background:linear-gradient(to left, transparent, color-mix(in srgb, var(--color-tinta) 22%, transparent))"
+  ></span>
+</div>

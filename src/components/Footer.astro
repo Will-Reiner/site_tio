@@ -1,0 +1,113 @@
+---
+import { NAV, REDES, CTA, SITE } from "../data/site.ts";
+import Icon from "./Icon.astro";
+import Botao from "./Botao.astro";
+const ano = new Date().getFullYear();
+---
+
+<footer class="relative bg-tinta text-creme">
+  <!-- Faixa colorida -->
+  <div class="flex h-2 w-full" aria-hidden="true">
+    <span class="flex-1 bg-rosa"></span>
+    <span class="flex-1 bg-ambar"></span>
+    <span class="flex-1 bg-azul"></span>
+    <span class="flex-1 bg-rosa-claro"></span>
+  </div>
+
+  <div class="mx-auto max-w-7xl px-5 py-14 lg:px-8">
+    <div class="grid gap-10 md:grid-cols-[1.5fr_1fr_1.3fr]">
+      <!-- Marca + bio -->
+      <div>
+        <div class="flex items-center gap-2.5">
+          <span
+            class="grid h-11 w-11 place-items-center rounded-xl bg-rosa font-display text-lg font-extrabold text-creme"
+            >ER</span
+          >
+          <span class="font-display text-xl font-extrabold">Eduardo Reiner</span>
+        </div>
+        <p class="mt-4 max-w-xs text-sm leading-relaxed text-creme/70">
+          {/* TODO (copy): ajuste esta linha quando os textos finais chegarem. */}
+          {SITE.profissao}. {SITE.cargo}. Uma pré-campanha que construo com quem
+          acredita no valor do trabalho.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-2">
+          <Botao
+            href={CTA.whatsapp.href}
+            variante="whatsapp"
+            tamanho="sm"
+            icone="whatsapp">{CTA.whatsapp.labelCurto}</Botao
+          >
+          <Botao href={CTA.doar.href} variante="creme" tamanho="sm"
+            >{CTA.doar.label}</Botao
+          >
+        </div>
+      </div>
+
+      <!-- Navegação -->
+      <nav aria-label="Rodapé">
+        <h2
+          class="font-display text-xs font-bold uppercase tracking-[0.2em] text-rosa-claro"
+        >
+          Navegar
+        </h2>
+        <ul class="mt-4 space-y-2.5">
+          {
+            NAV.map((i) => (
+              <li>
+                <a
+                  href={i.href}
+                  class="text-creme/80 transition-colors hover:text-rosa-claro"
+                >
+                  {i.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <!-- Redes -->
+      <div>
+        <h2
+          class="font-display text-xs font-bold uppercase tracking-[0.2em] text-rosa-claro"
+        >
+          Acompanhe
+        </h2>
+        <ul class="mt-4 space-y-2.5">
+          {
+            REDES.map((r) => (
+              <li>
+                <a
+                  href={r.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group inline-flex items-center gap-3 text-creme/80 transition-colors hover:text-creme"
+                >
+                  <span class="grid h-9 w-9 place-items-center rounded-full border border-creme/25 transition-colors group-hover:border-rosa group-hover:bg-rosa group-hover:text-creme">
+                    <Icon name={r.rede} size={16} />
+                  </span>
+                  <span class="leading-tight">
+                    <span class="block text-sm font-semibold">{r.nome}</span>
+                    <span class="block text-xs text-creme/50">{r.handle}</span>
+                  </span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="mt-12 flex flex-col gap-3 border-t border-creme/15 pt-6 text-xs text-creme/50 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>
+        © {ano} Eduardo Reiner · Conteúdo de pré-campanha.
+        {/* TODO: incluir nº de registro / CNPJ da campanha quando houver. */}
+      </p>
+      <a href="#conteudo" class="font-semibold text-creme/70 hover:text-rosa-claro"
+        >Voltar ao topo ↑</a
+      >
+    </div>
+  </div>
+</footer>

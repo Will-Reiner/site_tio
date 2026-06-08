@@ -1,0 +1,38 @@
+---
+import Icon from "./Icon.astro";
+import Botao from "./Botao.astro";
+
+interface Props {
+  nome: string;
+  descricao: string;
+  handle: string;
+  href: string;
+  class?: string;
+}
+const { nome, descricao, handle, href, class: klass = "" } = Astro.props;
+---
+
+<article
+  class:list={[
+    "group flex flex-col rounded-3xl border-2 border-tinta bg-tinta p-7 text-creme transition duration-200 hover:-translate-y-1",
+    klass,
+  ]}
+>
+  <div class="flex items-center gap-3">
+    <span
+      class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-[#FF0000] text-creme transition-transform group-hover:-rotate-6"
+    >
+      <Icon name="youtube" size={26} />
+    </span>
+    <div class="min-w-0">
+      <h3 class="truncate text-xl font-extrabold leading-tight">{nome}</h3>
+      <span class="text-sm text-creme/60">{handle}</span>
+    </div>
+  </div>
+  <p class="mt-4 flex-1 text-sm leading-relaxed text-creme/75">{descricao}</p>
+  <div class="mt-6">
+    <Botao href={href} variante="creme" tamanho="sm" iconeFim="seta-diagonal">
+      Ver canal
+    </Botao>
+  </div>
+</article>

@@ -1,0 +1,35 @@
+---
+import { REDES } from "../data/site.ts";
+import Icon from "./Icon.astro";
+
+interface Props {
+  variante?: "claro" | "escuro";
+  class?: string;
+}
+const { variante = "claro", class: klass = "" } = Astro.props;
+const escuro = variante === "escuro";
+---
+
+<ul class:list={["flex flex-wrap gap-2.5", klass]}>
+  {
+    REDES.map((r) => (
+      <li>
+        <a
+          href={r.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${r.nome} (${r.handle})`}
+          class:list={[
+            "btn-press inline-flex items-center gap-2 rounded-full border-2 border-tinta px-3.5 py-2 font-display text-sm font-bold transition-colors",
+            escuro
+              ? "border-creme/30 text-creme hover:border-creme hover:bg-creme hover:text-tinta"
+              : "hover:bg-tinta hover:text-creme",
+          ]}
+        >
+          <Icon name={r.rede} size={17} />
+          <span>{r.handle}</span>
+        </a>
+      </li>
+    ))
+  }
+</ul>

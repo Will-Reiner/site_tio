@@ -1,0 +1,118 @@
+---
+import Base from "../layouts/Base.astro";
+import FotoEditorial from "../components/FotoEditorial.astro";
+import Divisor from "../components/Divisor.astro";
+import FaixaCta from "../components/FaixaCta.astro";
+import cracha from "../assets/eduardo-cracha.jpeg";
+import entrevista from "../assets/eduardo-entrevista.jpeg";
+import popart from "../assets/eduardo-arte-popart.jpeg";
+
+// TODO (copy): toda a narrativa abaixo é provisória. Substitua pelos
+// textos reais da biografia do Eduardo.
+---
+
+<Base
+  title="Minha História"
+  description="Minha trajetória — do trabalho como auditor fiscal à decisão de me pré-candidatar a deputado federal."
+>
+  <div class="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-24">
+    <!-- As raízes -->
+    <section class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+      <FotoEditorial
+        src={cracha}
+        alt="Eduardo Reiner com o crachá do Ministério do Trabalho"
+        cor="rosa"
+        rotacao={-2}
+        aspecto="4 / 5"
+        prioridade={true}
+        class="mx-auto max-w-sm"
+      />
+      <div>
+        <h1 class="text-4xl font-extrabold leading-tight sm:text-5xl">
+          Sou auditor fiscal do trabalho
+        </h1>
+        <div class="mt-5 space-y-4 text-lg leading-relaxed text-tinta/80">
+          <p>
+            Desde cedo aprendi que nada cai do céu: o que se conquista, se
+            conquista com trabalho. Foi esse princípio que me levou à carreira de
+            <strong>auditor fiscal do trabalho</strong> — a profissão de quem
+            garante que a lei chegue ao canteiro de obras, ao chão de fábrica e a
+            cada lugar onde alguém ganha a vida.
+          </p>
+          <p>
+            Ano após ano, vi de perto as duas faces do mundo do trabalho: a
+            dignidade de quem produz com seriedade e a dura realidade de quem é
+            explorado. Cada fiscalização foi uma lição sobre o Brasil real.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <Divisor class="my-20 lg:my-28" />
+
+    <!-- O educador -->
+    <section class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+      <div class="lg:order-last">
+        <FotoEditorial
+          src={popart}
+          alt="Retrato artístico de Eduardo Reiner"
+          cor="azul"
+          rotacao={2}
+          aspecto="1 / 1"
+          class="mx-auto max-w-sm"
+        />
+      </div>
+      <div>
+        <h2 class="text-3xl font-extrabold leading-tight sm:text-4xl">
+          Do conhecimento técnico à oportunidade
+        </h2>
+        <div class="mt-5 space-y-4 text-lg leading-relaxed text-tinta/80">
+          <p>
+            A vontade de transformar conhecimento em oportunidade deu origem ao
+            <strong>Imersão AFT</strong>. Ali, ajudei a preparar e a inspirar
+            milhares de pessoas que sonham em servir o país por meio do serviço
+            público.
+          </p>
+          <p>
+            Ensinar mudou a forma como enxergo a política: não como um lugar
+            distante, mas como uma sala de aula gigante, onde informação séria e
+            boas escolhas podem mudar a vida de muita gente.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <Divisor class="my-20 lg:my-28" />
+
+    <!-- A decisão -->
+    <section class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+      <FotoEditorial
+        src={entrevista}
+        alt="Eduardo Reiner em entrevista à imprensa"
+        cor="ambar"
+        rotacao={-2}
+        aspecto="3 / 4"
+        class="mx-auto max-w-sm"
+      />
+      <div>
+        <h2 class="text-3xl font-extrabold leading-tight sm:text-4xl">
+          Levar essa luta para onde as regras são escritas
+        </h2>
+        <div class="mt-5 space-y-4 text-lg leading-relaxed text-tinta/80">
+          <p>
+            Depois de tantos anos defendendo o trabalho na ponta, cheguei a uma
+            conclusão simples e difícil ao mesmo tempo: para mudar de verdade, é
+            preciso estar onde as leis nascem.
+          </p>
+          <p>
+            É por isso que decidi me pré-candidatar a <strong>deputado
+            federal</strong>. Não para deixar de ser quem sou, mas para fazer o
+            que sempre fiz — defender quem trabalha — em uma escala muito maior.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <FaixaCta />
+</Base>

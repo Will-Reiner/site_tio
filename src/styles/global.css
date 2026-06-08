@@ -1,0 +1,243 @@
+@import "tailwindcss";
+
+/* =========================================================================
+   TOKENS DE DESIGN — Eduardo Reiner
+   Sistema próprio (Tailwind v4 @theme) para NÃO parecer template padrão.
+   Paleta: rosa (marca) + tinta (escuro) + creme (claro) + acentos contidos.
+   ========================================================================= */
+@theme {
+  /* --- Cores da marca --- */
+  /* Rosa principal. Ajustado para passar no contraste AA (WCAG ~4.7:1 sobre
+     o creme). Se quiser um rosa mais "neon", troque por #ed1a6e — só lembre
+     que aí o texto pequeno em rosa fica abaixo do recomendado de acessibilidade. */
+  --color-rosa: #d4135f;
+  --color-rosa-claro: #ff5ba3;
+  --color-rosa-escuro: #b3145a;
+  --color-tinta: #17131f;
+  --color-tinta-suave: #2c2638;
+  --color-creme: #fbf5ec;
+  --color-creme-200: #f2e7d4;
+  --color-creme-300: #e7d8bf;
+  --color-azul: #2b4cf0;
+  --color-ambar: #ffc02e;
+
+  /* --- Tipografia (auto-hospedada via Fontsource) --- */
+  --font-display: "Archivo Variable", "Archivo", system-ui, sans-serif;
+  --font-sans: "Hanken Grotesk Variable", "Hanken Grotesk", system-ui, sans-serif;
+  --font-assinatura: "Caveat Variable", "Caveat", ui-rounded, cursive;
+
+  /* --- Sombras "impressas" (estilo zine/cartaz) --- */
+  --shadow-zine: 5px 5px 0 0 var(--color-tinta);
+  --shadow-zine-rosa: 6px 6px 0 0 var(--color-rosa);
+  --shadow-zine-azul: 6px 6px 0 0 var(--color-azul);
+  --shadow-suave: 0 18px 40px -24px rgba(23, 19, 31, 0.45);
+
+  /* --- Larguras de borda --- */
+  --radius-card: 14px;
+
+  /* --- Animações --- */
+  --animate-marquee: marquee 32s linear infinite;
+  --animate-marquee-lento: marquee 60s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* =========================================================================
+   BASE
+   ========================================================================= */
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-creme);
+    color: var(--color-tinta);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    line-height: 0.96;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-underline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--color-rosa);
+    color: var(--color-creme);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-azul);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  /* Respeita usuários que pedem menos movimento */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* =========================================================================
+   TEXTURAS E DETALHES (anti "cara de IA")
+   ========================================================================= */
+
+/* Grão de papel sutil — aplicado como overlay fixo no layout */
+.textura-grao::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Halftone (pontinhos) — fundo de fotos e detalhes pop */
+.halftone {
+  background-image: radial-gradient(currentColor 1.4px, transparent 1.5px);
+  background-size: 11px 11px;
+}
+
+/* Padrão de pontos mais fino */
+.pontos {
+  background-image: radial-gradient(currentColor 1px, transparent 1.2px);
+  background-size: 18px 18px;
+}
+
+/* Marca de destaque tipo caneta marca-texto */
+.marca-texto {
+  background: linear-gradient(
+    transparent 58%,
+    color-mix(in srgb, var(--color-rosa) 38%, transparent) 58%
+  );
+  padding-inline: 0.05em;
+}
+
+/* Linha decorativa "rabiscada" sob títulos */
+.sublinhado-rosa {
+  position: relative;
+}
+.sublinhado-rosa::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.18em;
+  width: 100%;
+  height: 0.16em;
+  background: var(--color-rosa);
+  border-radius: 999px;
+  transform: skewX(-12deg);
+}
+
+/* Faixa em movimento (marquee) */
+.faixa-marquee {
+  display: flex;
+  width: max-content;
+  animation: var(--animate-marquee);
+}
+.faixa-marquee--lento {
+  animation: var(--animate-marquee-lento);
+}
+
+/* Numerais tabulares para estatísticas (não "pulam" largura) */
+.num-tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Botão: leve "press" tátil */
+.btn-press {
+  transition:
+    transform 120ms ease-out,
+    box-shadow 120ms ease-out,
+    background-color 150ms ease-out,
+    color 150ms ease-out;
+}
+.btn-press:active {
+  transform: translate(2px, 2px);
+}
+
+/* Conteúdo vindo de markdown (propostas, blog) */
+.conteudo-md {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--color-tinta) 82%, transparent);
+}
+.conteudo-md > * + * {
+  margin-top: 1.1em;
+}
+.conteudo-md h3 {
+  font-size: 1.5rem;
+  margin-top: 1.6em;
+}
+.conteudo-md a {
+  color: var(--color-rosa);
+  font-weight: 600;
+  text-decoration: underline;
+}
+.conteudo-md strong {
+  color: var(--color-tinta);
+  font-weight: 700;
+}
+.conteudo-md ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.65rem;
+}
+.conteudo-md ul li {
+  position: relative;
+  padding-left: 1.9rem;
+}
+/* marcador em "check" rosa desenhado em CSS */
+.conteudo-md ul li::before {
+  content: "";
+  position: absolute;
+  left: 0.1rem;
+  top: 0.4em;
+  width: 0.85rem;
+  height: 0.45rem;
+  border-left: 3px solid var(--color-rosa);
+  border-bottom: 3px solid var(--color-rosa);
+  transform: rotate(-45deg);
+}

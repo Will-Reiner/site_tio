@@ -1,0 +1,192 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import Hero from "../components/Hero.astro";
+import Marquee from "../components/Marquee.astro";
+import PropostaCard from "../components/PropostaCard.astro";
+import Citacao from "../components/Citacao.astro";
+import MidiaCard from "../components/MidiaCard.astro";
+import CanalCard from "../components/CanalCard.astro";
+import FaixaCta from "../components/FaixaCta.astro";
+import CabecalhoSecao from "../components/CabecalhoSecao.astro";
+import FotoEditorial from "../components/FotoEditorial.astro";
+import Botao from "../components/Botao.astro";
+import Icon from "../components/Icon.astro";
+import Divisor from "../components/Divisor.astro";
+
+import { SOBRE_HOME, CITACAO, FRASES_MARQUEE, VIDEO_APRESENTACAO } from "../data/conteudo.ts";
+import { CANAIS_YOUTUBE } from "../data/site.ts";
+import { IMPRENSA } from "../data/imprensa.ts";
+import entrevista from "../assets/eduardo-entrevista.jpeg";
+
+const propostas = (await getCollection("propostas")).sort(
+  (a, b) => a.data.ordem - b.data.ordem,
+);
+const featured = IMPRENSA.find((i) => i.destaque) ?? IMPRENSA[0];
+---
+
+<Base>
+  <Hero />
+
+  <Marquee itens={FRASES_MARQUEE} variante="rosa" />
+
+  <!-- Vídeo de apresentação -->
+  <section class="mx-auto max-w-4xl px-5 pt-16 pb-20 lg:px-8 lg:pt-24 lg:pb-24">
+    <CabecalhoSecao
+      kicker="Em vídeo"
+      titulo="Conheça a minha campanha"
+      alinhamento="centro"
+      class="mx-auto max-w-2xl"
+    />
+    <div class="mt-10 overflow-hidden rounded-3xl border-2 border-tinta shadow-zine">
+      {
+        VIDEO_APRESENTACAO.id ? (
+          <iframe
+            class="aspect-video w-full"
+            src={`https://www.youtube-nocookie.com/embed/${VIDEO_APRESENTACAO.id}`}
+            title={VIDEO_APRESENTACAO.titulo}
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          />
+        ) : (
+          // TODO (vídeo): assim que o vídeo estiver pronto, cole o ID do
+          // YouTube em VIDEO_APRESENTACAO (src/data/conteudo.ts) — este espaço
+          // reservado é substituído automaticamente pelo player.
+          <div class="relative grid aspect-video place-items-center bg-tinta text-center text-creme">
+            <div
+              class="halftone pointer-events-none absolute inset-0 opacity-20"
+              aria-hidden="true"
+            />
+            <div class="relative px-6">
+              <span class="mx-auto grid h-16 w-16 place-items-center rounded-full bg-rosa text-creme shadow-zine">
+                <Icon name="play" size={28} />
+              </span>
+              <p class="mt-4 font-display text-sm font-bold uppercase tracking-[0.2em] text-creme/70">
+                Vídeo em breve
+              </p>
+            </div>
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <Divisor />
+  </div>
+
+  <!-- Quem sou eu -->
+  <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-24">
+    <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      <div>
+        <CabecalhoSecao kicker="Quem sou eu" titulo="Do chão da fiscalização para o Congresso" />
+        <div class="mt-6 space-y-4 text-lg leading-relaxed text-tinta/80">
+          {SOBRE_HOME.map((p) => <p>{p}</p>)}
+        </div>
+        <div class="mt-8">
+          <Botao href="/minha-historia/" variante="rosa" tamanho="md" iconeFim="seta-direita">
+            Minha história completa
+          </Botao>
+        </div>
+      </div>
+      <div class="order-first lg:order-last">
+        <FotoEditorial
+          src={entrevista}
+          alt="Eduardo Reiner sendo entrevistado pela imprensa no Ministério do Trabalho"
+          cor="azul"
+          rotacao={-2}
+          aspecto="3 / 4"
+          class="mx-auto max-w-sm"
+        />
+      </div>
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <Divisor />
+  </div>
+
+  <!-- Propostas -->
+  <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-24">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <CabecalhoSecao
+        kicker="No que eu acredito"
+        titulo="As ideias que guiam esta caminhada"
+        class="max-w-2xl"
+      />
+      <Botao href="/propostas/" variante="contorno" tamanho="md" iconeFim="seta-direita">
+        Ver todas
+      </Botao>
+    </div>
+    <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        propostas.map((p) => (
+          <PropostaCard
+            titulo={p.data.titulo}
+            resumo={p.data.resumo}
+            numero={p.data.ordem}
+            cor={p.data.cor}
+            href={`/propostas/#${p.id}`}
+          />
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Citação -->
+  <section class="relative overflow-hidden bg-tinta py-20 sm:py-24">
+    <div
+      class="pontos pointer-events-none absolute inset-0 text-creme/5"
+      aria-hidden="true"
+    >
+    </div>
+    <div class="relative mx-auto max-w-7xl px-5 lg:px-8">
+      <Citacao
+        texto={CITACAO.texto}
+        autor={CITACAO.autor}
+        cargo="Auditor fiscal do trabalho · Pré-candidato a deputado federal"
+        variante="escuro"
+      />
+    </div>
+  </section>
+
+  <!-- Na mídia (prévia) -->
+  <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-24">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <CabecalhoSecao kicker="Na mídia" titulo="Onde o trabalho vira pauta" />
+      <Botao href="/na-midia/" variante="contorno" tamanho="md" iconeFim="seta-direita">
+        Ver tudo
+      </Botao>
+    </div>
+    <div class="mt-10 grid gap-6 lg:grid-cols-2">
+      {
+        featured && (
+          <MidiaCard
+            titulo={featured.titulo}
+            veiculo={featured.veiculo}
+            data={featured.data}
+            url={featured.url}
+            resumo={featured.resumo}
+            imagem={entrevista}
+            destaque={false}
+          />
+        )
+      }
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
+        {
+          CANAIS_YOUTUBE.map((c) => (
+            <CanalCard
+              nome={c.nome}
+              descricao={c.descricao}
+              handle={c.handle}
+              href={c.href}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <FaixaCta />
+</Base>

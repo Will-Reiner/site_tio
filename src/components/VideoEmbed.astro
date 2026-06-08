@@ -1,0 +1,46 @@
+---
+// Card de vídeo "leve": mostra a miniatura do YouTube e abre o vídeo ao clicar
+// (sem carregar o iframe pesado — melhor desempenho e privacidade).
+import Icon from "./Icon.astro";
+
+interface Props {
+  id: string;
+  titulo: string;
+  canal: string;
+  class?: string;
+}
+const { id, titulo, canal, class: klass = "" } = Astro.props;
+const thumb = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+const url = `https://www.youtube.com/watch?v=${id}`;
+---
+
+<a
+  href={url}
+  target="_blank"
+  rel="noopener noreferrer"
+  class:list={[
+    "group relative block overflow-hidden rounded-2xl border-2 border-tinta",
+    klass,
+  ]}
+  aria-label={`Assistir no YouTube: ${titulo}`}
+>
+  <img
+    src={thumb}
+    alt=""
+    loading="lazy"
+    width="480"
+    height="360"
+    class="aspect-video w-full object-cover transition-transform duration-300 group-hover:scale-105"
+  />
+  <span class="absolute inset-0 grid place-items-center">
+    <span
+      class="grid h-16 w-16 place-items-center rounded-full bg-rosa text-creme shadow-zine transition-transform duration-200 group-hover:scale-110"
+    >
+      <Icon name="play" size={28} />
+    </span>
+  </span>
+  <span class="absolute inset-x-0 bottom-0 bg-tinta/85 p-3.5 text-creme">
+    <span class="block text-sm font-bold leading-tight">{titulo}</span>
+    <span class="block text-xs text-creme/60">{canal}</span>
+  </span>
+</a>

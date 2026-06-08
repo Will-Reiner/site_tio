@@ -1,0 +1,46 @@
+---
+import Icon from "./Icon.astro";
+
+interface Props {
+  itens: string[];
+  variante?: "rosa" | "tinta" | "creme";
+  lento?: boolean;
+  class?: string;
+}
+const { itens, variante = "tinta", lento = false, class: klass = "" } =
+  Astro.props;
+
+const bg: Record<string, string> = {
+  rosa: "bg-rosa text-creme",
+  tinta: "bg-tinta text-creme",
+  creme: "bg-creme text-tinta",
+};
+// Duplica a lista para o loop ficar contínuo (a animação anda -50%).
+const lista = [...itens, ...itens];
+---
+
+<div
+  class:list={[
+    "group flex select-none overflow-hidden border-y-2 border-tinta py-3",
+    bg[variante],
+    klass,
+  ]}
+  role="presentation"
+  aria-hidden="true"
+>
+  <div
+    class:list={[
+      "faixa-marquee group-hover:[animation-play-state:paused]",
+      lento && "faixa-marquee--lento",
+    ]}
+  >
+    {
+      lista.map((t) => (
+        <span class="mx-7 inline-flex items-center gap-7 whitespace-nowrap font-display text-base font-extrabold uppercase tracking-wide sm:text-lg">
+          {t}
+          <Icon name="estrela" size={15} class="opacity-80" />
+        </span>
+      ))
+    }
+  </div>
+</div>

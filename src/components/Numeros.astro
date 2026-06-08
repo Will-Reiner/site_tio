@@ -1,0 +1,27 @@
+---
+interface Props {
+  numeros: { valor: string; rotulo: string }[];
+  class?: string;
+}
+const { numeros, class: klass = "" } = Astro.props;
+---
+
+<div
+  class:list={[
+    "grid gap-0.5 overflow-hidden rounded-3xl border-2 border-tinta bg-tinta sm:grid-cols-3",
+    klass,
+  ]}
+>
+  {
+    numeros.map((n) => (
+      <div class="bg-creme px-6 py-9 text-center">
+        <div class="num-tabular font-display text-5xl font-extrabold leading-none text-rosa sm:text-6xl">
+          {n.valor}
+        </div>
+        <div class="mx-auto mt-3 max-w-[18ch] text-sm font-medium leading-snug text-tinta/70">
+          {n.rotulo}
+        </div>
+      </div>
+    ))
+  }
+</div>

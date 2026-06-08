@@ -1,0 +1,99 @@
+---
+import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
+import Base from "../../layouts/Base.astro";
+import Divisor from "../../components/Divisor.astro";
+import FaixaCta from "../../components/FaixaCta.astro";
+
+const propostas = (await getCollection("propostas")).sort(
+  (a, b) => a.data.ordem - b.data.ordem,
+);
+const eixos = await Promise.all(
+  propostas.map(async (p) => {
+    const { Content } = await render(p);
+    return { ...p, Content };
+  }),
+);
+
+const painel: Record<string, { bg: string; txt: string; dot: string }> = {
+  rosa: { bg: "bg-rosa", txt: "text-creme", dot: "text-rosa-escuro" },
+  azul: { bg: "bg-azul", txt: "text-creme", dot: "text-tinta/40" },
+  ambar: { bg: "bg-ambar", txt: "text-tinta", dot: "text-tinta/20" },
+  tinta: { bg: "bg-tinta", txt: "text-creme", dot: "text-creme/10" },
+};
+---
+
+<Base
+  title="Propostas"
+  description="As diretrizes da minha pré-campanha para trabalho digno, fiscalização, emprego, renda e educação."
+>
+  <div class="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-24">
+    <h1 class="sr-only">Minhas propostas</h1>
+    <div class="space-y-16 lg:space-y-28">
+    {
+      eixos.map((p, i) => {
+        const c = painel[p.data.cor];
+        const Conteudo = p.Content;
+        const reverse = i % 2 === 1;
+        const num = String(p.data.ordem).padStart(2, "0");
+        return (
+          <Fragment>
+            {i > 0 && <Divisor />}
+            <section
+              id={p.id}
+              class="grid scroll-mt-28 items-center gap-10 lg:grid-cols-2 lg:gap-16"
+            >
+            <div class={reverse ? "lg:order-last" : ""}>
+              {p.data.imagem ? (
+                <div class="overflow-hidden rounded-3xl border-2 border-tinta shadow-zine">
+                  <Image
+                    src={p.data.imagem}
+                    alt={p.data.titulo}
+                    sizes="(max-width: 1024px) 92vw, 560px"
+                    class="w-full object-cover"
+                    style="aspect-ratio: 4 / 3"
+                  />
+                </div>
+              ) : (
+                <div
+                  class:list={[
+                    "relative grid min-h-[15rem] place-items-center overflow-hidden rounded-3xl border-2 border-tinta p-8 shadow-zine",
+                    c.bg,
+                  ]}
+                >
+                  <div
+                    class:list={["halftone absolute inset-0 opacity-25", c.dot]}
+                    aria-hidden="true"
+                  />
+                  <span
+                    class:list={[
+                      "relative font-display text-[7rem] font-extrabold leading-none sm:text-[9rem]",
+                      c.txt,
+                    ]}
+                  >
+                    {num}
+                  </span>
+                </div>
+              )}
+            </div>
+            <div>
+              <h2 class="text-4xl font-extrabold leading-tight sm:text-5xl">
+                {p.data.titulo}
+              </h2>
+              <div class="conteudo-md mt-5">
+                <Conteudo />
+              </div>
+            </div>
+            </section>
+          </Fragment>
+        );
+      })
+    }
+    </div>
+  </div>
+
+  <FaixaCta
+    titulo="Tem uma ideia para somar?"
+    texto="As propostas crescem com quem vive o dia a dia do trabalho. Entre na comunidade e participe da construção."
+  />
+</Base>

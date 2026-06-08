@@ -1,0 +1,90 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import MidiaCard from "../../components/MidiaCard.astro";
+import Redes from "../../components/Redes.astro";
+import Divisor from "../../components/Divisor.astro";
+import FaixaCta from "../../components/FaixaCta.astro";
+import Icon from "../../components/Icon.astro";
+import { IMPRENSA } from "../../data/imprensa.ts";
+import entrevista from "../../assets/eduardo-entrevista.jpeg";
+
+const imgMap: Record<string, ImageMetadata> = { entrevista };
+const posts = (
+  await getCollection("blog", ({ data }) => !data.rascunho)
+).sort((a, b) => b.data.data.getTime() - a.data.data.getTime());
+const fmt = (d: Date) =>
+  new Intl.DateTimeFormat("pt-BR", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  }).format(d);
+---
+
+<Base
+  title="Na Mídia"
+  description="Meus vídeos, entrevistas e artigos sobre trabalho, direitos e o futuro do Brasil — e minhas redes sociais."
+>
+  <h1 class="sr-only">Na mídia</h1>
+
+  <!-- Reportagens, artigos e materiais -->
+  <section class="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-24">
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {
+        IMPRENSA.map((m) => (
+          <MidiaCard
+            titulo={m.titulo}
+            veiculo={m.veiculo}
+            data={m.data}
+            url={m.url}
+            resumo={m.resumo}
+            imagem={m.imagem ? imgMap[m.imagem] : undefined}
+          />
+        ))
+      }
+      {
+        posts.map((post) => (
+          <a
+            href={`/na-midia/${post.id}/`}
+            class="group flex flex-col rounded-3xl border-2 border-tinta bg-creme p-7 transition duration-200 hover:-translate-y-1 hover:shadow-zine"
+          >
+            <span class="font-display text-xs font-bold uppercase tracking-wide text-rosa">
+              {fmt(post.data.data)}
+            </span>
+            <h2 class="mt-3 text-xl font-extrabold leading-tight">
+              {post.data.titulo}
+            </h2>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-tinta/75">
+              {post.data.resumo}
+            </p>
+            <span class="mt-5 inline-flex items-center gap-2 font-display text-sm font-bold transition-colors group-hover:text-rosa">
+              Ler artigo
+              <Icon
+                name="seta-direita"
+                size={16}
+                class="transition-transform group-hover:translate-x-1"
+              />
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <Divisor />
+  </div>
+
+  <!-- Minhas redes -->
+  <section class="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-24">
+    <div class="rounded-3xl border-2 border-tinta bg-creme p-8 shadow-zine lg:p-10">
+      <h2 class="text-2xl font-extrabold sm:text-3xl">Minhas redes sociais</h2>
+      <p class="mt-2 max-w-xl text-tinta/70">
+        Me acompanhe no dia a dia e fale comigo por aqui.
+      </p>
+      <Redes class="mt-6" />
+    </div>
+  </section>
+
+  <FaixaCta />
+</Base>

@@ -1,0 +1,36 @@
+---
+interface Props {
+  kicker: string;
+  titulo: string;
+  subtitulo?: string;
+}
+const { kicker, titulo, subtitulo } = Astro.props;
+---
+
+<section class="relative overflow-hidden border-b-2 border-tinta bg-creme">
+  <div
+    class="pontos pointer-events-none absolute -right-8 -top-10 h-44 w-44 text-rosa/20"
+    aria-hidden="true"
+  >
+  </div>
+  <div class="mx-auto max-w-7xl px-5 py-14 lg:px-8 lg:py-20">
+    <p
+      class="inline-flex items-center gap-2 font-display text-xs font-bold uppercase tracking-[0.2em] text-rosa"
+    >
+      <span class="h-px w-6 bg-rosa"></span>
+      {kicker}
+    </p>
+    <h1
+      class="mt-4 max-w-4xl text-5xl font-extrabold leading-[0.95] sm:text-6xl lg:text-7xl"
+    >
+      {titulo}
+    </h1>
+    {
+      subtitulo && (
+        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-tinta/80">
+          {subtitulo}
+        </p>
+      )
+    }
+  </div>
+</section>
