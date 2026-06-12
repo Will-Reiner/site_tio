@@ -6,20 +6,29 @@
    Paleta: rosa (marca) + tinta (escuro) + creme (claro) + acentos contidos.
    ========================================================================= */
 @theme {
-  /* --- Cores da marca --- */
-  /* Rosa principal. Ajustado para passar no contraste AA (WCAG ~4.7:1 sobre
-     o creme). Se quiser um rosa mais "neon", troque por #ed1a6e — só lembre
-     que aí o texto pequeno em rosa fica abaixo do recomendado de acessibilidade. */
-  --color-rosa: #d4135f;
-  --color-rosa-claro: #ff5ba3;
-  --color-rosa-escuro: #b3145a;
+  /* --- Cores da marca (paleta: rosa neon + azul/cinza + amarelo claro) --- */
+  /* Rosa "neon" da campanha — vibrante de propósito. Sobre o creme rende
+     ~3.9:1: ótimo para preenchimentos, ícones e texto grande. Para TEXTO
+     PEQUENO (rótulos, navegação, links) use rosa-escuro, que passa no AA (~4.6:1). */
+  --color-rosa: #f8126d;
+  --color-rosa-claro: #ff6ba6;
+  --color-rosa-escuro: #d60e5e;
+
   --color-tinta: #17131f;
   --color-tinta-suave: #2c2638;
   --color-creme: #fbf5ec;
   --color-creme-200: #f2e7d4;
   --color-creme-300: #e7d8bf;
-  --color-azul: #2b4cf0;
-  --color-ambar: #ffc02e;
+
+  /* Azul/cinza — acento sereno. Tom médio: como preenchimento, peça texto
+     ESCURO por cima. azul-escuro é a versão para foco, links e números no creme. */
+  --color-azul: #6e99a2;
+  --color-azul-escuro: #3c5b63;
+
+  /* Amarelo bem claro — superfície/realce. Claro demais para primeiro plano:
+     use sempre como FUNDO com texto escuro. ambar-escuro é o dourado dos acentos. */
+  --color-ambar: #faebb2;
+  --color-ambar-escuro: #c9a227;
 
   /* --- Tipografia (auto-hospedada via Fontsource) --- */
   --font-display: "Archivo Variable", "Archivo", system-ui, sans-serif;
@@ -98,7 +107,7 @@
   }
 
   :focus-visible {
-    outline: 3px solid var(--color-azul);
+    outline: 3px solid var(--color-azul-escuro);
     outline-offset: 3px;
     border-radius: 3px;
   }
@@ -211,7 +220,7 @@
   margin-top: 1.6em;
 }
 .conteudo-md a {
-  color: var(--color-rosa);
+  color: var(--color-rosa-escuro);
   font-weight: 600;
   text-decoration: underline;
 }
