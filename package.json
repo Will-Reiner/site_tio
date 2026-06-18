@@ -16,9 +16,9 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.0.0",
-    "@fontsource-variable/archivo": "^5.0.0",
     "@fontsource-variable/caveat": "^5.0.0",
-    "@fontsource-variable/hanken-grotesk": "^5.0.0",
+    "@fontsource-variable/montserrat": "^5.0.0",
+    "@fontsource-variable/open-sans": "^5.0.0",
     "astro": "^5.0.0"
   },
   "devDependencies": {

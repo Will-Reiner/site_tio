@@ -3,7 +3,14 @@ import Icon from "./Icon.astro";
 
 interface Props {
   href?: string;
-  variante?: "rosa" | "tinta" | "creme" | "contorno" | "azul" | "whatsapp";
+  variante?:
+    | "rosa"
+    | "tinta"
+    | "creme"
+    | "contorno"
+    | "contorno-claro"
+    | "azul"
+    | "whatsapp";
   tamanho?: "sm" | "md" | "lg";
   icone?: string; // ícone à esquerda
   iconeFim?: string; // ícone à direita
@@ -22,15 +29,17 @@ const {
 } = Astro.props;
 
 const base =
-  "btn-press group inline-flex items-center justify-center gap-2 rounded-full border-2 border-tinta font-display font-bold uppercase tracking-wide leading-none hover:-translate-y-0.5";
+  "btn-press group inline-flex items-center justify-center gap-2 rounded-full border-2 font-display font-bold uppercase tracking-wide leading-none hover:-translate-y-0.5";
 
 const variantes: Record<string, string> = {
-  rosa: "bg-rosa text-creme hover:bg-rosa-escuro",
-  tinta: "bg-tinta text-creme hover:bg-tinta-suave",
-  creme: "bg-creme text-tinta hover:bg-creme-200",
-  contorno: "bg-transparent text-tinta hover:bg-tinta hover:text-creme",
-  azul: "bg-azul text-tinta hover:brightness-105",
-  whatsapp: "bg-[#25D366] text-tinta hover:brightness-105",
+  rosa: "border-tinta bg-rosa text-creme hover:bg-rosa-escuro",
+  tinta: "border-tinta bg-tinta text-creme hover:bg-tinta-suave",
+  creme: "border-tinta bg-creme text-tinta hover:bg-creme-200",
+  contorno: "border-tinta bg-transparent text-tinta hover:bg-tinta hover:text-creme",
+  "contorno-claro":
+    "border-creme bg-transparent text-creme hover:bg-creme hover:text-tinta",
+  azul: "border-tinta bg-azul text-tinta hover:brightness-105",
+  whatsapp: "border-tinta bg-[#25D366] text-tinta hover:brightness-105",
 };
 
 const tamanhos: Record<string, string> = {

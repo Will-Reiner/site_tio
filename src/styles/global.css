@@ -3,36 +3,46 @@
 /* =========================================================================
    TOKENS DE DESIGN — Eduardo Reiner
    Sistema próprio (Tailwind v4 @theme) para NÃO parecer template padrão.
-   Paleta: rosa (marca) + tinta (escuro) + creme (claro) + acentos contidos.
+   Paleta terrosa: verde oliva (marca) + azul petróleo (escuro) + bege areia
+   (claro) + branco + acentos contidos.
    ========================================================================= */
 @theme {
-  /* --- Cores da marca (paleta: rosa neon + azul/cinza + amarelo claro) --- */
-  /* Rosa "neon" da campanha — vibrante de propósito. Sobre o creme rende
-     ~3.9:1: ótimo para preenchimentos, ícones e texto grande. Para TEXTO
-     PEQUENO (rótulos, navegação, links) use rosa-escuro, que passa no AA (~4.6:1). */
-  --color-rosa: #f8126d;
-  --color-rosa-claro: #ff6ba6;
-  --color-rosa-escuro: #d60e5e;
+  /* --- Cores da marca (paleta: verde oliva + azul petróleo + bege areia) --- */
+  /* Verde oliva da campanha — sóbrio e "de trabalho". Sobre o bege areia rende
+     ~4.6:1: passa no AA até para texto pequeno; com branco por cima rende ~6.4:1.
+     rosa-escuro é a versão mais fechada para links e detalhes finos no bege. */
+  --color-rosa: #566330;
+  --color-rosa-claro: #7c8a4e;
+  --color-rosa-escuro: #404a22;
 
-  --color-tinta: #17131f;
-  --color-tinta-suave: #2c2638;
-  --color-creme: #fbf5ec;
-  --color-creme-200: #f2e7d4;
-  --color-creme-300: #e7d8bf;
+  /* Azul petróleo — a "tinta" escura dominante (textos, seções escuras). */
+  --color-tinta: #03384d;
+  --color-tinta-suave: #134e64;
 
-  /* Azul/cinza — acento sereno. Tom médio: como preenchimento, peça texto
-     ESCURO por cima. azul-escuro é a versão para foco, links e números no creme. */
-  --color-azul: #6e99a2;
-  --color-azul-escuro: #3c5b63;
+  /* Bege areia — fundo quente da página. Variações mais fechadas para
+     divisórias, bordas e cartões empilhados. */
+  --color-creme: #e5dcc3;
+  --color-creme-200: #dccfb0;
+  --color-creme-300: #d0c19c;
 
-  /* Amarelo bem claro — superfície/realce. Claro demais para primeiro plano:
-     use sempre como FUNDO com texto escuro. ambar-escuro é o dourado dos acentos. */
-  --color-ambar: #faebb2;
-  --color-ambar-escuro: #c9a227;
+  /* Branco — superfícies elevadas (cartões) sobre o bege. */
+  --color-branco: #fefefe;
+
+  /* Teal derivado do petróleo — acento sereno secundário. Tom médio: como
+     preenchimento, peça texto ESCURO por cima. azul-escuro é a versão para
+     foco, links e números sobre o bege. */
+  --color-azul: #4f8090;
+  --color-azul-escuro: #2c5b69;
+
+  /* Caqui terroso — superfície/realce quente. Claro demais para primeiro
+     plano: use sempre como FUNDO com texto escuro. ambar-escuro é o tom
+     oliva-dourado dos acentos. */
+  --color-ambar: #e8dca8;
+  --color-ambar-escuro: #7a6a26;
 
   /* --- Tipografia (auto-hospedada via Fontsource) --- */
-  --font-display: "Archivo Variable", "Archivo", system-ui, sans-serif;
-  --font-sans: "Hanken Grotesk Variable", "Hanken Grotesk", system-ui, sans-serif;
+  --font-display: "Montserrat Variable", "Montserrat", system-ui, sans-serif;
+  --font-sans: "Open Sans Variable", "Open Sans", system-ui, sans-serif;
   --font-assinatura: "Caveat Variable", "Caveat", ui-rounded, cursive;
 
   /* --- Sombras "impressas" (estilo zine/cartaz) --- */
@@ -86,9 +96,9 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    font-weight: 800;
-    line-height: 0.96;
-    letter-spacing: -0.025em;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
     text-wrap: balance;
   }
 
@@ -139,6 +149,29 @@
   opacity: 0.045;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Degradê sutil para o fundo azul do hero — manchas levemente mais claras
+   (teal no canto da foto, petróleo claro no rodapé e um leve brilho no topo).
+   Tons derivados dos tokens via color-mix, com alpha baixo para ficar discreto. */
+.fundo-azul-degrade {
+  background-color: var(--color-tinta);
+  background-image:
+    radial-gradient(
+      58% 62% at 85% 8%,
+      color-mix(in srgb, var(--color-azul) 20%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      55% 60% at 6% 100%,
+      color-mix(in srgb, var(--color-tinta-suave) 55%, transparent),
+      transparent 72%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-tinta-suave) 26%, transparent),
+      transparent 38%
+    );
 }
 
 /* Halftone (pontinhos) — fundo de fotos e detalhes pop */

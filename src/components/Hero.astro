@@ -7,55 +7,67 @@ import Redes from "./Redes.astro";
 import cracha from "../assets/eduardo-cracha.jpeg";
 ---
 
-<section class="relative overflow-hidden">
+<section class="fundo-azul-degrade relative text-creme">
+  <!-- Textura de pontos (verde, sutil) no canto -->
   <div
-    class="pontos pointer-events-none absolute -right-10 top-28 hidden h-48 w-48 text-rosa/25 lg:block"
+    class="pontos pointer-events-none absolute right-[8%] top-24 hidden h-48 w-48 text-rosa/20 lg:block"
     aria-hidden="true"
   >
   </div>
+
   <div
-    class="mx-auto grid max-w-7xl items-center gap-12 px-5 py-12 lg:grid-cols-12 lg:gap-10 lg:px-8 lg:py-20"
+    class="mx-auto grid w-full max-w-7xl gap-12 px-5 lg:grid-cols-12 lg:items-start lg:gap-10 lg:px-8"
   >
     <!-- Texto -->
-    <div class="lg:col-span-7">
-      <h1 class="text-5xl leading-[0.92] sm:text-6xl lg:text-7xl">
-        {HERO.titulo}<br />
-        <span class="text-rosa">{HERO.destaque}</span>
-      </h1>
-      <p
-        class="mt-4 font-assinatura text-3xl leading-none text-rosa sm:text-4xl"
+    <div class="py-12 lg:col-span-7 lg:py-0">
+      <!-- Primeira dobra: título → botões, centralizados na altura da tela,
+           com margem abaixo dos botões antes do fim da tela. -->
+      <div
+        class="flex flex-col justify-center lg:min-h-[calc(100svh-4rem)] lg:pb-10"
       >
-        {HERO.assinatura}
-      </p>
-      <p class="mt-6 max-w-xl text-lg leading-relaxed text-tinta/80">
-        {HERO.subtitulo}
-      </p>
-      <div class="mt-8 flex flex-wrap gap-3">
-        <Botao
-          href={CTA.whatsapp.href}
-          variante="whatsapp"
-          tamanho="lg"
-          icone="whatsapp">{CTA.whatsapp.label}</Botao
-        >
-        <Botao
-          href="/propostas/"
-          variante="tinta"
-          tamanho="lg"
-          iconeFim="seta-direita">Conhecer as propostas</Botao
-        >
-      </div>
-      <div class="mt-10">
+        <h1 class="text-5xl leading-[0.95] text-branco sm:text-6xl lg:text-7xl">
+          {HERO.titulo}<br />
+          <span class="text-rosa-claro">{HERO.destaque}</span>
+        </h1>
         <p
-          class="mb-3 font-display text-xs font-bold uppercase tracking-[0.2em] text-tinta/50"
+          class="mt-4 font-assinatura text-3xl leading-none text-rosa-claro sm:text-4xl"
+        >
+          {HERO.assinatura}
+        </p>
+        <p class="mt-6 max-w-xl text-lg leading-relaxed text-creme/85">
+          {HERO.subtitulo}
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <Botao
+            href="/propostas/"
+            variante="rosa"
+            tamanho="lg"
+            iconeFim="seta-direita">Conhecer as propostas</Botao
+          >
+          <Botao
+            href={CTA.whatsapp.href}
+            variante="contorno-claro"
+            tamanho="lg"
+            icone="whatsapp">{CTA.whatsapp.label}</Botao
+          >
+        </div>
+      </div>
+
+      <!-- Abaixo da dobra: aparece ao rolar. -->
+      <div class="mt-10 lg:mt-0 lg:pb-20">
+        <p
+          class="mb-3 font-display text-xs font-bold uppercase tracking-[0.2em] text-creme/55"
         >
           Acompanhe
         </p>
-        <Redes />
+        <Redes variante="escuro" />
       </div>
     </div>
 
     <!-- Foto -->
-    <div class="relative mx-auto w-full max-w-sm lg:col-span-5 lg:max-w-none">
+    <div
+      class="mx-auto flex w-full max-w-sm items-center py-2 lg:col-span-5 lg:min-h-[calc(100svh-4rem)] lg:max-w-[25rem] lg:py-0"
+    >
       <FotoEditorial
         src={cracha}
         alt="Eduardo Reiner com o crachá de auditor fiscal do Ministério do Trabalho"
@@ -63,13 +75,8 @@ import cracha from "../assets/eduardo-cracha.jpeg";
         rotacao={2}
         aspecto="4 / 5"
         prioridade={true}
-        class="mx-auto max-w-sm"
+        class="mx-auto w-full max-w-sm lg:max-w-none"
       />
-      <span
-        class="absolute -left-2 bottom-6 -rotate-6 rounded-xl border-2 border-tinta bg-ambar px-4 py-2 text-center font-display text-sm font-extrabold uppercase leading-tight text-tinta shadow-[3px_3px_0_0_var(--color-tinta)]"
-      >
-        Auditor Fiscal<br />do Trabalho
-      </span>
     </div>
   </div>
 </section>
