@@ -14,14 +14,14 @@ export const SITE = {
   url: "https://eduardoreiner.com.br",
   // Descrição usada no SEO e no preview ao compartilhar (Open Graph / WhatsApp):
   descricao:
-    "Eduardo Reiner, auditor fiscal do trabalho, é pré-candidato a deputado federal. Conheça a história, as propostas e faça parte.",
+    "Eduardo Reiner, auditor fiscal do trabalho, é pré-candidato a deputado federal. Conheça a história, as lutas e faça parte.",
 };
 
 // --- Navegação principal ---
 export const NAV = [
   { href: "/", label: "Início" },
   { href: "/minha-historia/", label: "Minha História" },
-  { href: "/propostas/", label: "Propostas" },
+  { href: "/lutas/", label: "Lutas" },
   { href: "/na-midia/", label: "Na Mídia" },
 ] as const;
 
@@ -47,7 +47,14 @@ export const CTA = {
 };
 
 // --- Redes sociais (somente as fornecidas pelo cliente) ---
+// Instagram em primeiro (principal rede em campanha no Brasil).
 export const REDES = [
+  {
+    rede: "instagram" as const,
+    nome: "Instagram",
+    handle: "@eduardo.reiner",
+    href: "https://instagram.com/eduardo.reiner",
+  },
   {
     rede: "youtube" as const,
     nome: "Canal do Eduardo",
@@ -79,8 +86,8 @@ export const REDES = [
     href: "https://www.tiktok.com/@eduardoreiner72",
   },
 ];
-// TODO: o cliente tem Instagram? É a principal rede em campanha no Brasil.
-// Se sim, adicionar aqui com rede: "instagram".
+// TODO: incluir o LinkedIn quando o cliente enviar a URL (e adicionar o
+// ícone "linkedin" no mapa de ícones em Icon.astro).
 
 // --- Canais de YouTube em destaque (usado na página Na Mídia) ---
 export const CANAIS_YOUTUBE = [

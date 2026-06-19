@@ -4,23 +4,23 @@ import FotoEditorial from "../components/FotoEditorial.astro";
 import Divisor from "../components/Divisor.astro";
 import FaixaCta from "../components/FaixaCta.astro";
 import cracha from "../assets/eduardo-cracha.jpeg";
-import entrevista from "../assets/eduardo-entrevista.jpeg";
-import popart from "../assets/eduardo-arte-popart.jpeg";
+import trajetoria2012 from "../assets/trajetoria-2012.jpeg";
+import trajetoria2016 from "../assets/trajetoria-2016.jpeg";
 
-// TODO (copy): toda a narrativa abaixo é provisória. Substitua pelos
-// textos reais da biografia do Eduardo.
+// Textos confirmados pelo cliente (alt.pdf). Os títulos das seções de
+// trajetória são editoriais — ajuste se desejar.
 ---
 
 <Base
   title="Minha História"
-  description="Minha trajetória — do trabalho como auditor fiscal à decisão de me pré-candidatar a deputado federal."
+  description="Uma vida dedicada à justiça social e ao trabalho digno — quase 20 anos como auditor fiscal do trabalho."
 >
   <div class="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-24">
-    <!-- As raízes -->
+    <!-- Quem sou eu (detalhado) -->
     <section class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
       <FotoEditorial
         src={cracha}
-        alt="Eduardo Reiner com o crachá do Ministério do Trabalho"
+        alt="Eduardo Reiner com o crachá de auditor fiscal do trabalho"
         cor="rosa"
         rotacao={-2}
         aspecto="4 / 5"
@@ -28,21 +28,36 @@ import popart from "../assets/eduardo-arte-popart.jpeg";
         class="mx-auto max-w-sm"
       />
       <div>
-        <h1 class="text-4xl font-bold leading-tight sm:text-5xl">
-          Sou auditor fiscal do trabalho
+        <p
+          class="inline-flex items-center gap-2 font-display text-xs font-bold uppercase tracking-[0.2em] text-rosa-escuro"
+        >
+          <span class="h-px w-6 bg-rosa"></span>
+          Quem sou eu
+        </p>
+        <h1 class="mt-4 text-4xl font-bold leading-tight sm:text-5xl">
+          Uma vida dedicada à justiça social e ao trabalho digno
         </h1>
-        <div class="mt-5 space-y-4 text-lg leading-relaxed text-tinta/80">
+        <div class="mt-6 space-y-4 text-lg leading-relaxed text-tinta/80">
           <p>
-            Desde cedo aprendi que nada cai do céu: o que se conquista, se
-            conquista com trabalho. Foi esse princípio que me levou à carreira de
-            <strong>auditor fiscal do trabalho</strong> — a profissão de quem
-            garante que a lei chegue ao canteiro de obras, ao chão de fábrica e a
-            cada lugar onde alguém ganha a vida.
+            Há quase duas décadas, atuo na linha de frente como auditor fiscal
+            do trabalho. Minha trajetória é marcada por aliar a especialização
+            técnica — com dois mestrados em Direito, incluindo uma titulação na
+            Espanha — aos desafios reais do nosso país.
           </p>
           <p>
-            Ano após ano, vi de perto as duas faces do mundo do trabalho: a
-            dignidade de quem produz com seriedade e a dura realidade de quem é
-            explorado. Cada fiscalização foi uma lição sobre o Brasil real.
+            <strong>Experiência na prática:</strong> fui coordenador do grupo móvel
+            de combate ao trabalho infantil e coordenei o planejamento estratégico
+            nacional de combate ao trabalho escravo.
+          </p>
+          <p>
+            <strong>Gestão e liderança:</strong> ao longo da minha carreira, ocupei
+            todas as funções de chefia da auditoria fiscal no estado do Paraná.
+          </p>
+          <p>
+            <strong>Políticas inteligentes:</strong> luto por uma visão política em
+            que a sustentabilidade ultrapassa a pauta ambiental, a segurança pública
+            é gerida com inteligência e a proteção dos direitos humanos não permite
+            nenhum tipo de omissão.
           </p>
         </div>
       </div>
@@ -50,66 +65,65 @@ import popart from "../assets/eduardo-arte-popart.jpeg";
 
     <Divisor class="my-20 lg:my-28" />
 
-    <!-- O educador -->
+    <!-- Trajetória · 2012 -->
     <section class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
       <div class="lg:order-last">
         <FotoEditorial
-          src={popart}
-          alt="Retrato artístico de Eduardo Reiner"
+          src={trajetoria2012}
+          alt="Eduardo Reiner ao lado de Marina Silva em entrevista coletiva, em 2012"
           cor="azul"
           rotacao={2}
-          aspecto="1 / 1"
-          class="mx-auto max-w-sm"
+          aspecto="3 / 2"
+          class="mx-auto"
         />
       </div>
       <div>
-        <h2 class="text-3xl font-bold leading-tight sm:text-4xl">
-          Do conhecimento técnico à oportunidade
+        <p
+          class="inline-flex items-center gap-2 font-display text-xs font-bold uppercase tracking-[0.2em] text-rosa-escuro"
+        >
+          <span class="h-px w-6 bg-rosa"></span>
+          Trajetória · 2012
+        </p>
+        <h2 class="mt-4 text-3xl font-bold leading-tight sm:text-4xl">
+          Ao lado de Marina Silva
         </h2>
-        <div class="mt-5 space-y-4 text-lg leading-relaxed text-tinta/80">
-          <p>
-            A vontade de transformar conhecimento em oportunidade deu origem ao
-            <strong>Imersão AFT</strong>. Ali, ajudei a preparar e a inspirar
-            milhares de pessoas que sonham em servir o país por meio do serviço
-            público.
-          </p>
-          <p>
-            Ensinar mudou a forma como enxergo a política: não como um lugar
-            distante, mas como uma sala de aula gigante, onde informação séria e
-            boas escolhas podem mudar a vida de muita gente.
-          </p>
-        </div>
+        <p class="mt-5 text-lg leading-relaxed text-tinta/80">
+          Entrevista coletiva em 2012 — Marina, candidata à Presidência, e
+          Eduardo, candidato a deputado federal. À época, Eduardo era
+          coordenador da campanha de Marina no Paraná e coordenador-geral do
+          partido Rede Sustentabilidade.
+        </p>
       </div>
     </section>
 
     <Divisor class="my-20 lg:my-28" />
 
-    <!-- A decisão -->
+    <!-- Trajetória · 2016 -->
     <section class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
       <FotoEditorial
-        src={entrevista}
-        alt="Eduardo Reiner em entrevista à imprensa"
+        src={trajetoria2016}
+        alt="Eduardo Reiner em ação de campanha pela Rede em Curitiba, em 2016"
         cor="ambar"
         rotacao={-2}
-        aspecto="3 / 4"
-        class="mx-auto max-w-sm"
+        aspecto="3 / 2"
+        class="mx-auto"
       />
       <div>
-        <h2 class="text-3xl font-bold leading-tight sm:text-4xl">
-          Levar essa luta para onde as regras são escritas
+        <p
+          class="inline-flex items-center gap-2 font-display text-xs font-bold uppercase tracking-[0.2em] text-rosa-escuro"
+        >
+          <span class="h-px w-6 bg-rosa"></span>
+          Trajetória · 2016
+        </p>
+        <h2 class="mt-4 text-3xl font-bold leading-tight sm:text-4xl">
+          Política construída com as pessoas
         </h2>
-        <div class="mt-5 space-y-4 text-lg leading-relaxed text-tinta/80">
-          <p>
-            Depois de tantos anos defendendo o trabalho na ponta, cheguei a uma
-            conclusão simples e difícil ao mesmo tempo: para mudar de verdade, é
-            preciso estar onde as leis nascem.
-          </p>
-          <p>
-            É por isso que decidi me pré-candidatar a <strong>deputado
-            federal</strong>. Não para deixar de ser quem sou, mas para fazer o
-            que sempre fiz — defender quem trabalha — em uma escala muito maior.
-          </p>
-        </div>
+        <p class="mt-5 text-lg leading-relaxed text-tinta/80">
+          “Quero agradecer a cada um que faz parte dessa construção diferente
+          para ajudar a melhorar a política. Preciso da contribuição de
+          todos(as) para ser a voz de vocês e de tantos(as) outros(as) que hoje
+          não se sentem representados(as).” — agosto de 2016.
+        </p>
       </div>
     </section>
   </div>

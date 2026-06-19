@@ -18,6 +18,7 @@ import { SOBRE_HOME, CITACAO, FRASES_MARQUEE, VIDEO_APRESENTACAO } from "../data
 import { CANAIS_YOUTUBE } from "../data/site.ts";
 import { IMPRENSA } from "../data/imprensa.ts";
 import entrevista from "../assets/eduardo-entrevista.jpeg";
+import audiencia from "../assets/eduardo-audiencia.jpeg";
 
 const propostas = (await getCollection("propostas")).sort(
   (a, b) => a.data.ordem - b.data.ordem,
@@ -34,7 +35,7 @@ const featured = IMPRENSA.find((i) => i.destaque) ?? IMPRENSA[0];
   <section class="mx-auto max-w-4xl px-5 pt-16 pb-20 lg:px-8 lg:pt-24 lg:pb-24">
     <CabecalhoSecao
       kicker="Em vídeo"
-      titulo="Conheça a minha campanha"
+      titulo="Conheça minhas lutas"
       alinhamento="centro"
       class="mx-auto max-w-2xl"
     />
@@ -92,12 +93,12 @@ const featured = IMPRENSA.find((i) => i.destaque) ?? IMPRENSA[0];
       </div>
       <div class="order-first lg:order-last">
         <FotoEditorial
-          src={entrevista}
-          alt="Eduardo Reiner sendo entrevistado pela imprensa no Ministério do Trabalho"
+          src={audiencia}
+          alt="Eduardo Reiner em audiência pública, ao lado de autoridades"
           cor="azul"
           rotacao={-2}
-          aspecto="3 / 4"
-          class="mx-auto max-w-sm"
+          aspecto="4 / 3"
+          class="mx-auto"
         />
       </div>
     </div>
@@ -107,7 +108,7 @@ const featured = IMPRENSA.find((i) => i.destaque) ?? IMPRENSA[0];
     <Divisor />
   </div>
 
-  <!-- Propostas -->
+  <!-- Lutas -->
   <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-24">
     <div class="flex flex-wrap items-end justify-between gap-6">
       <CabecalhoSecao
@@ -115,7 +116,7 @@ const featured = IMPRENSA.find((i) => i.destaque) ?? IMPRENSA[0];
         titulo="As ideias que guiam esta caminhada"
         class="max-w-2xl"
       />
-      <Botao href="/propostas/" variante="contorno" tamanho="md" iconeFim="seta-direita">
+      <Botao href="/lutas/" variante="contorno" tamanho="md" iconeFim="seta-direita">
         Ver todas
       </Botao>
     </div>
@@ -127,7 +128,7 @@ const featured = IMPRENSA.find((i) => i.destaque) ?? IMPRENSA[0];
             resumo={p.data.resumo}
             numero={p.data.ordem}
             cor={p.data.cor}
-            href={`/propostas/#${p.id}`}
+            href={`/lutas/#${p.id}`}
           />
         ))
       }

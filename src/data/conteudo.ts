@@ -12,7 +12,7 @@ export const HERO = {
   titulo: "Defender o trabalho",
   destaque: "é defender o Brasil.",
   subtitulo:
-    "Sou Eduardo Reiner, auditor fiscal do trabalho. Há mais de 15 anos fiscalizo, protejo e conheço de perto a realidade de quem constrói o país. Agora, quero levar essa luta para a Câmara dos Deputados.",
+    "Sou Eduardo Reiner, auditor fiscal do trabalho. Há quase 20 anos fiscalizo, protejo e conheço de perto a realidade de quem constrói o país. Agora, quero levar essa luta para a Câmara dos Deputados.",
 };
 
 // Vídeo de apresentação na home (antes de "Quem sou eu"). Cole o ID do
@@ -63,8 +63,8 @@ export const CITACAO = {
 
 // Resumo "Quem sou eu" na home (2 parágrafos curtos, em primeira pessoa).
 export const SOBRE_HOME = [
-  "Sou filho do trabalho e movido por ele. Construí minha trajetória como auditor fiscal do trabalho — a carreira de quem garante que a lei chegue ao chão de fábrica, ao canteiro de obras e a cada local onde alguém ganha a vida.",
-  "Dessa experiência nasceu também o educador: no Imersão AFT, transformei conhecimento técnico em oportunidade para milhares de pessoas. Agora, levo tudo isso para uma nova missão — representar quem trabalha no Congresso Nacional.",
+  "Com quase 20 anos de atuação como auditor fiscal do trabalho, dedico minha vida à defesa dos direitos fundamentais e à construção de um Brasil mais justo. Sou mestre em Direito por duas vezes — com parte da minha formação acadêmica realizada na Espanha —, sempre buscando aliar o rigor técnico à ação na ponta.",
+  "Durante a minha trajetória, ocupei todas as chefias da auditoria no Paraná e assumi desafios nacionais complexos, como a coordenação do grupo móvel de combate ao trabalho infantil e a coordenação do planejamento estratégico de combate ao trabalho escravo. Acredito na urgência de renovar o Congresso Nacional com uma visão de sustentabilidade, políticas públicas baseadas em inteligência e proteção irrestrita às nossas crianças e adolescentes.",
 ];
 
 // Frases curtas que rodam na faixa em movimento (marquee).

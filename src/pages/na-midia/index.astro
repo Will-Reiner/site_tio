@@ -3,11 +3,13 @@ import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import MidiaCard from "../../components/MidiaCard.astro";
 import Redes from "../../components/Redes.astro";
+import FotoEditorial from "../../components/FotoEditorial.astro";
 import Divisor from "../../components/Divisor.astro";
 import FaixaCta from "../../components/FaixaCta.astro";
 import Icon from "../../components/Icon.astro";
 import { IMPRENSA } from "../../data/imprensa.ts";
 import entrevista from "../../assets/eduardo-entrevista.jpeg";
+import artePopart from "../../assets/eduardo-arte-popart.jpeg";
 
 const imgMap: Record<string, ImageMetadata> = { entrevista };
 const posts = (
@@ -75,14 +77,43 @@ const fmt = (d: Date) =>
     <Divisor />
   </div>
 
-  <!-- Minhas redes -->
+  <!-- Por que acompanhar -->
   <section class="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-24">
-    <div class="rounded-3xl border-2 border-tinta bg-creme p-8 shadow-zine lg:p-10">
-      <h2 class="text-2xl font-bold sm:text-3xl">Minhas redes sociais</h2>
-      <p class="mt-2 max-w-xl text-tinta/70">
-        Me acompanhe no dia a dia e fale comigo por aqui.
-      </p>
-      <Redes class="mt-6" />
+    <div
+      class="grid items-center gap-10 rounded-3xl border-2 border-tinta bg-creme p-8 shadow-zine lg:grid-cols-[1.4fr_1fr] lg:gap-14 lg:p-12"
+    >
+      <div>
+        <p
+          class="inline-flex items-center gap-2 font-display text-xs font-bold uppercase tracking-[0.2em] text-rosa-escuro"
+        >
+          <span class="h-px w-6 bg-rosa"></span>
+          Redes
+        </p>
+        <h2 class="mt-3 text-3xl font-bold leading-tight sm:text-4xl">
+          Por que acompanhar Eduardo Reiner?
+        </h2>
+        <p class="mt-5 text-lg leading-relaxed text-tinta/80">
+          Para participar de um debate político e social qualificado e
+          fundamentado. Com 20 anos de experiência, ele aborda com seriedade
+          temas críticos do mundo do trabalho: trabalho escravo, direitos
+          trabalhistas, proteção infantil e sustentabilidade. Seu trabalho é
+          focado na construção de políticas públicas reais que unem
+          desenvolvimento econômico, respeito à vida e justiça social. Siga os
+          perfis para se informar e integrar uma rede que busca soluções
+          inteligentes e estruturais para o Brasil.
+        </p>
+        <Redes class="mt-7" />
+      </div>
+      <div class="order-first lg:order-none">
+        <FotoEditorial
+          src={artePopart}
+          alt="Retrato artístico de Eduardo Reiner"
+          cor="rosa"
+          rotacao={2}
+          aspecto="1 / 1"
+          class="mx-auto max-w-xs"
+        />
+      </div>
     </div>
   </section>
 
