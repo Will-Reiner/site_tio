@@ -16,10 +16,10 @@ import cracha from "../assets/eduardo-cracha.jpeg";
   </div>
 
   <div
-    class="mx-auto grid w-full max-w-7xl gap-12 px-5 lg:grid-cols-12 lg:items-start lg:gap-10 lg:px-8"
+    class="mx-auto grid w-full max-w-7xl gap-8 px-5 lg:grid-cols-12 lg:items-start lg:gap-10 lg:px-8"
   >
     <!-- Texto -->
-    <div class="py-12 lg:col-span-7 lg:py-0">
+    <div class="pb-12 lg:col-span-7 lg:py-0">
       <!-- Primeira dobra: título → botões, centralizados na altura da tela,
            com margem abaixo dos botões antes do fim da tela. -->
       <div
@@ -64,9 +64,9 @@ import cracha from "../assets/eduardo-cracha.jpeg";
       </div>
     </div>
 
-    <!-- Foto -->
+    <!-- Foto (foco no topo no mobile; à direita no desktop) -->
     <div
-      class="mx-auto flex w-full max-w-sm items-center py-2 lg:col-span-5 lg:min-h-[calc(100svh-4rem)] lg:max-w-[25rem] lg:py-0"
+      class="order-first mx-auto flex w-full max-w-sm items-center justify-center pt-8 lg:order-none lg:col-span-5 lg:min-h-[calc(100svh-4rem)] lg:max-w-[25rem] lg:pt-0"
     >
       <FotoEditorial
         src={cracha}

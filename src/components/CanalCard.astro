@@ -14,7 +14,7 @@ const { nome, descricao, handle, href, class: klass = "" } = Astro.props;
 
 <article
   class:list={[
-    "group flex flex-col rounded-3xl border-2 border-tinta bg-tinta p-7 text-creme transition duration-200 hover:-translate-y-1",
+    "fundo-azul-degrade group flex flex-col rounded-3xl border-2 border-tinta p-7 text-creme transition duration-200 hover:-translate-y-1",
     klass,
   ]}
 >
@@ -25,7 +25,7 @@ const { nome, descricao, handle, href, class: klass = "" } = Astro.props;
       <Icon name="youtube" size={26} />
     </span>
     <div class="min-w-0">
-      <h3 class="truncate text-xl font-extrabold leading-tight">{nome}</h3>
+      <h3 class="truncate text-xl font-bold leading-tight">{nome}</h3>
       <span class="text-sm text-creme/60">{handle}</span>
     </div>
   </div>
