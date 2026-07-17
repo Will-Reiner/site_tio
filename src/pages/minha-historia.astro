@@ -3,6 +3,7 @@ import Base from "../layouts/Base.astro";
 import FotoEditorial from "../components/FotoEditorial.astro";
 import Divisor from "../components/Divisor.astro";
 import FaixaCta from "../components/FaixaCta.astro";
+import Timeline from "../components/Timeline.astro";
 import cracha from "../assets/eduardo-cracha.jpeg";
 import trajetoria2012 from "../assets/trajetoria-2012.jpeg";
 import trajetoria2016 from "../assets/trajetoria-2016.jpeg";
@@ -13,7 +14,7 @@ import trajetoria2016 from "../assets/trajetoria-2016.jpeg";
 
 <Base
   title="Minha História"
-  description="Uma vida dedicada à justiça social e ao trabalho digno — quase 20 anos como auditor fiscal do trabalho."
+  description="Uma vida dedicada à justiça social e ao trabalho digno, com quase 20 anos como auditor fiscal do trabalho."
 >
   <div class="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-24">
     <!-- Quem sou eu (detalhado) -->
@@ -41,8 +42,8 @@ import trajetoria2016 from "../assets/trajetoria-2016.jpeg";
           <p>
             Há quase duas décadas, atuo na linha de frente como auditor fiscal
             do trabalho. Minha trajetória é marcada por aliar a especialização
-            técnica — com dois mestrados em Direito, incluindo uma titulação na
-            Espanha — aos desafios reais do nosso país.
+            técnica (com dois mestrados em Direito, incluindo uma titulação na
+            Espanha) aos desafios reais do nosso país.
           </p>
           <p>
             <strong>Experiência na prática:</strong> fui coordenador do grupo móvel
@@ -88,7 +89,7 @@ import trajetoria2016 from "../assets/trajetoria-2016.jpeg";
           Ao lado de Marina Silva
         </h2>
         <p class="mt-5 text-lg leading-relaxed text-tinta/80">
-          Entrevista coletiva em 2012 — Marina, candidata à Presidência, e
+          Entrevista coletiva em 2012: Marina, candidata à Presidência, e
           Eduardo, candidato a deputado federal. À época, Eduardo era
           coordenador da campanha de Marina no Paraná e coordenador-geral do
           partido Rede Sustentabilidade.
@@ -122,11 +123,34 @@ import trajetoria2016 from "../assets/trajetoria-2016.jpeg";
           “Quero agradecer a cada um que faz parte dessa construção diferente
           para ajudar a melhorar a política. Preciso da contribuição de
           todos(as) para ser a voz de vocês e de tantos(as) outros(as) que hoje
-          não se sentem representados(as).” — agosto de 2016.
+          não se sentem representados(as).” (agosto de 2016).
         </p>
+      </div>
+    </section>
+
+    <Divisor class="my-20 lg:my-28" />
+
+    <!-- Linha do tempo -->
+    <section class="text-center">
+      <p
+        class="inline-flex items-center gap-2 font-display text-xs font-bold uppercase tracking-[0.2em] text-rosa-escuro"
+      >
+        <span class="h-px w-6 bg-rosa"></span>
+        Linha do tempo
+      </p>
+      <h2 class="mt-4 text-3xl font-bold leading-tight sm:text-4xl">
+        Da fiscalização à representação
+      </h2>
+      <p class="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-tinta/80">
+        Uma trajetória construída na prática, da linha de frente da fiscalização
+        do trabalho ao compromisso de representar o Paraná.
+      </p>
+      <div class="mx-auto mt-10 max-w-xl text-left">
+        <Timeline />
       </div>
     </section>
   </div>
 
   <FaixaCta />
 </Base>
+

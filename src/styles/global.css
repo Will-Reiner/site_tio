@@ -3,42 +3,53 @@
 /* =========================================================================
    TOKENS DE DESIGN — Eduardo Reiner
    Sistema próprio (Tailwind v4 @theme) para NÃO parecer template padrão.
-   Paleta terrosa: verde oliva (marca) + azul petróleo (escuro) + bege areia
-   (claro) + branco + acentos contidos.
+   Paleta institucional: fundo BRANCO + AZUL (primário) + VERDE (complementar)
+   + VERMELHO só em botões de ação. Os NOMES dos tokens foram mantidos por
+   compatibilidade com o código existente, mas os VALORES são institucionais:
+     rosa*  = VERDE institucional (complementar: ícones, selos, marca-texto)
+     tinta* = azul-marinho escuro (texto e superfícies escuras)
+     azul*  = AZUL institucional (primário: destaques, links, bordas de card)
+     acao*  = VERMELHO (exclusivo de botões de mobilização)
+     creme* = BRANCO e cinzas muito claros (fundo e superfícies)
    ========================================================================= */
 @theme {
-  /* --- Cores da marca (paleta: verde oliva + azul petróleo + bege areia) --- */
-  /* Verde oliva da campanha — sóbrio e "de trabalho". Sobre o bege areia rende
-     ~4.6:1: passa no AA até para texto pequeno; com branco por cima rende ~6.4:1.
-     rosa-escuro é a versão mais fechada para links e detalhes finos no bege. */
-  --color-rosa: #566330;
-  --color-rosa-claro: #7c8a4e;
-  --color-rosa-escuro: #404a22;
+  /* Verde institucional — cor complementar (ícones, selos, subtítulos,
+     marca-texto, sublinhado). Branco sobre o verde rende ~5.5:1 (AA); o
+     verde-escuro serve para links/detalhes finos sobre o branco. */
+  --color-rosa: #0b6b4b;
+  --color-rosa-claro: #12805a;
+  --color-rosa-escuro: #084d37;
 
-  /* Azul petróleo — a "tinta" escura dominante (textos, seções escuras). */
-  --color-tinta: #03384d;
-  --color-tinta-suave: #134e64;
+  /* Azul-marinho escuro — a "tinta" de texto e das seções escuras. Alto
+     contraste sobre o branco. */
+  --color-tinta: #0a2540;
+  --color-tinta-suave: #163a5f;
 
-  /* Bege areia — fundo quente da página. Variações mais fechadas para
-     divisórias, bordas e cartões empilhados. */
-  --color-creme: #e5dcc3;
-  --color-creme-200: #dccfb0;
-  --color-creme-300: #d0c19c;
+  /* Branco e cinzas muito claros — fundo da página e superfícies elevadas;
+     variações para hover sutil, divisórias e bordas. */
+  --color-creme: #ffffff;
+  --color-creme-200: #eef2f6;
+  --color-creme-300: #d9e1e8;
 
-  /* Branco — superfícies elevadas (cartões) sobre o bege. */
-  --color-branco: #fefefe;
+  /* Branco puro — superfícies elevadas (cartões). */
+  --color-branco: #ffffff;
 
-  /* Teal derivado do petróleo — acento sereno secundário. Tom médio: como
-     preenchimento, peça texto ESCURO por cima. azul-escuro é a versão para
-     foco, links e números sobre o bege. */
-  --color-azul: #4f8090;
-  --color-azul-escuro: #2c5b69;
+  /* Azul institucional — cor PRIMÁRIA de destaque (títulos de seção, links,
+     bordas de card, foco). Como preenchimento de botão, peça texto BRANCO por
+     cima. azul-escuro é a versão para links/números sobre o branco. */
+  --color-azul: #0b57a4;
+  --color-azul-escuro: #0a3d6b;
 
-  /* Caqui terroso — superfície/realce quente. Claro demais para primeiro
-     plano: use sempre como FUNDO com texto escuro. ambar-escuro é o tom
-     oliva-dourado dos acentos. */
-  --color-ambar: #e8dca8;
-  --color-ambar-escuro: #7a6a26;
+  /* Vermelho de ação — EXCLUSIVO de botões de mobilização (Apoiar, Acessar
+     Manual, Retirar convite, Entrar na comunidade, Enviar). Nunca como cor de
+     fundo/identidade. */
+  --color-acao: #c81e1e;
+  --color-acao-escuro: #a81616;
+
+  /* Superfície verde-clara (usar como FUNDO com texto escuro) + acento
+     verde-escuro para detalhes. */
+  --color-ambar: #e9f3ee;
+  --color-ambar-escuro: #3d6b45;
 
   /* --- Tipografia (auto-hospedada via Fontsource) --- */
   --font-display: "Montserrat Variable", "Montserrat", system-ui, sans-serif;
@@ -237,6 +248,78 @@
 }
 .btn-press:active {
   transform: translate(2px, 2px);
+}
+
+/* Modais nativos (<dialog>) — pop-ups de Lutas e retirada de convite */
+dialog {
+  border: none;
+  padding: 0;
+  max-height: min(88svh, 44rem);
+  background: transparent;
+}
+dialog::backdrop {
+  background: color-mix(in srgb, var(--color-tinta) 55%, transparent);
+  backdrop-filter: blur(2px);
+}
+dialog[open] {
+  animation: modal-surge 160ms ease-out;
+}
+@keyframes modal-surge {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Formulários (LGPD, Manual, Eventos, Presença, Contato) */
+.rotulo-form {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-tinta);
+}
+.campo-form {
+  width: 100%;
+  border: 2px solid var(--color-tinta);
+  border-radius: 12px;
+  background: var(--color-branco);
+  padding: 0.7rem 0.9rem;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--color-tinta);
+}
+.campo-form::placeholder {
+  color: color-mix(in srgb, var(--color-tinta) 45%, transparent);
+}
+.campo-form:focus-visible {
+  outline: 3px solid var(--color-azul);
+  outline-offset: 1px;
+}
+.consentimento-form {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  border: 2px solid var(--color-creme-300);
+  border-radius: 12px;
+  background: var(--color-creme-200);
+  padding: 0.85rem 1rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.consentimento-form input[type="checkbox"] {
+  margin-top: 0.2rem;
+  width: 1.15rem;
+  height: 1.15rem;
+  flex-shrink: 0;
+  accent-color: var(--color-rosa);
 }
 
 /* Conteúdo vindo de markdown (propostas, blog) */

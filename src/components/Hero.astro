@@ -7,10 +7,10 @@ import Redes from "./Redes.astro";
 import cracha from "../assets/eduardo-cracha.jpeg";
 ---
 
-<section class="fundo-azul-degrade relative text-creme">
-  <!-- Textura de pontos (verde, sutil) no canto -->
+<section class="relative bg-branco text-tinta">
+  <!-- Textura de pontos (azul, sutil) no canto -->
   <div
-    class="pontos pointer-events-none absolute right-[8%] top-24 hidden h-48 w-48 text-rosa/20 lg:block"
+    class="pontos pointer-events-none absolute right-[8%] top-24 hidden h-48 w-48 text-azul/15 lg:block"
     aria-hidden="true"
   >
   </div>
@@ -25,30 +25,30 @@ import cracha from "../assets/eduardo-cracha.jpeg";
       <div
         class="flex flex-col justify-center lg:min-h-[calc(100svh-4rem)] lg:pb-10"
       >
-        <h1 class="text-5xl leading-[0.95] text-branco sm:text-6xl lg:text-7xl">
+        <h1 class="text-5xl leading-[0.95] text-tinta sm:text-6xl lg:text-7xl">
           {HERO.titulo}<br />
-          <span class="text-rosa-claro">{HERO.destaque}</span>
+          <span class="text-azul">{HERO.destaque}</span>
         </h1>
         <p
-          class="mt-4 font-assinatura text-3xl leading-none text-rosa-claro sm:text-4xl"
+          class="mt-4 font-assinatura text-3xl leading-none text-rosa sm:text-4xl"
         >
           {HERO.assinatura}
         </p>
-        <p class="mt-6 max-w-xl text-lg leading-relaxed text-creme/85">
+        <p class="mt-6 max-w-xl text-lg leading-relaxed text-tinta/80">
           {HERO.subtitulo}
         </p>
         <div class="mt-8 flex flex-wrap gap-3">
           <Botao
-            href="/lutas/"
-            variante="rosa"
+            href={CTA.doar.href}
+            variante="acao"
             tamanho="lg"
-            iconeFim="seta-direita">Conhecer as lutas</Botao
+            iconeFim="seta-direita">{CTA.doar.label}</Botao
           >
-          <Botao
-            href={CTA.whatsapp.href}
-            variante="contorno-claro"
-            tamanho="lg"
-            icone="whatsapp">{CTA.whatsapp.label}</Botao
+          <Botao href="/manual/" variante="rosa" tamanho="lg" icone="escudo"
+            >Acessar o Manual</Botao
+          >
+          <Botao href="/minha-historia/" variante="contorno" tamanho="lg"
+            >Minha história</Botao
           >
         </div>
       </div>
@@ -56,11 +56,11 @@ import cracha from "../assets/eduardo-cracha.jpeg";
       <!-- Abaixo da dobra: aparece ao rolar. -->
       <div class="mt-10 lg:mt-0 lg:pb-20">
         <p
-          class="mb-3 font-display text-xs font-bold uppercase tracking-[0.2em] text-creme/55"
+          class="mb-3 font-display text-xs font-bold uppercase tracking-[0.2em] text-tinta/55"
         >
           Acompanhe
         </p>
-        <Redes variante="escuro" />
+        <Redes />
       </div>
     </div>
 
@@ -71,7 +71,7 @@ import cracha from "../assets/eduardo-cracha.jpeg";
       <FotoEditorial
         src={cracha}
         alt="Eduardo Reiner com o crachá de auditor fiscal do Ministério do Trabalho"
-        cor="rosa"
+        cor="azul"
         rotacao={2}
         aspecto="4 / 5"
         prioridade={true}

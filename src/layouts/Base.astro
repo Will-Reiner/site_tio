@@ -20,7 +20,7 @@ const {
   noindex = false,
 } = Astro.props;
 
-const fullTitle = title ? `${title} — ${SITE.nome}` : `${SITE.nome} — ${SITE.cargo}`;
+const fullTitle = title ? `${title} · ${SITE.nome}` : `${SITE.nome} · ${SITE.cargo}`;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL(image, Astro.site).href;
 const isDev = import.meta.env.DEV;
@@ -38,7 +38,7 @@ const isDev = import.meta.env.DEV;
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex,nofollow" />}
-    <meta name="theme-color" content="#E5DCC3" />
+    <meta name="theme-color" content="#ffffff" />
     <meta name="color-scheme" content="light" />
 
     <!-- Open Graph / Twitter (preview ao compartilhar no WhatsApp e redes) -->

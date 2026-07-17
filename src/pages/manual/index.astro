@@ -1,0 +1,211 @@
+---
+import Base from "../../layouts/Base.astro";
+import Icon from "../../components/Icon.astro";
+
+const faixas = [
+  "16 a 24 anos",
+  "25 a 34 anos",
+  "35 a 44 anos",
+  "45 a 59 anos",
+  "60 anos ou mais",
+  "Prefiro não informar",
+];
+const temas = [
+  "Férias",
+  "Rescisão",
+  "FGTS",
+  "Jornada e horas extras",
+  "Assédio",
+  "Trabalho doméstico",
+  "Trabalho rural",
+  "PJ / pejotização",
+  "Trabalho por aplicativos",
+  "Servidor celetista",
+  "Estágio",
+  "Aprendizagem",
+  "Terceirização",
+  "Sindicatos",
+  "Outros",
+];
+---
+
+<Base
+  title="Manual de Direitos Trabalhistas"
+  description="Acesse gratuitamente o Manual de Direitos Trabalhistas do Eduardo Reiner: respostas claras sobre férias, rescisão, FGTS, assédio, PJ e muito mais."
+>
+  <section class="mx-auto max-w-6xl px-5 py-12 lg:px-8 lg:py-16">
+    <div class="grid gap-10 lg:grid-cols-[1fr_1.05fr] lg:gap-14">
+      <!-- Apresentação -->
+      <div>
+        <p
+          class="inline-flex items-center gap-2 font-display text-xs font-bold uppercase tracking-[0.2em] text-rosa-escuro"
+        >
+          <span class="h-px w-6 bg-rosa"></span>
+          Ferramenta gratuita
+        </p>
+        <h1 class="mt-3 text-4xl font-bold leading-[1.05] sm:text-5xl">
+          Manual de Direitos<br /><span class="text-azul">Trabalhistas</span>
+        </h1>
+        <p class="mt-5 text-lg leading-relaxed text-tinta/80">
+          Um manual interativo de direitos trabalhistas, em linguagem simples:
+          você navega por tema e encontra a orientação que precisa, com a base
+          legal de cada assunto.
+        </p>
+
+        <ul class="mt-7 grid gap-3">
+          {
+            [
+              "Navegue por tema e toque na pergunta parecida com a sua.",
+              "Cada resposta traz o próximo passo e a base jurídica.",
+              "Feito para o celular, sem juridiquês.",
+            ].map((t) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-rosa text-creme">
+                  <Icon name="check" size={14} />
+                </span>
+                <span class="text-tinta/85">{t}</span>
+              </li>
+            ))
+          }
+        </ul>
+
+        <p class="mt-7 text-sm leading-relaxed text-tinta/60">
+          Conteúdo informativo e educativo. Não substitui a orientação jurídica
+          individual de um(a) advogado(a).
+        </p>
+      </div>
+
+      <!-- Formulário de acesso -->
+      <div
+        class="rounded-3xl border-2 border-tinta bg-creme p-6 shadow-zine sm:p-8"
+      >
+        <h2 class="text-2xl font-bold leading-tight">
+          Preencha para acessar o Manual
+        </h2>
+        <p class="mt-2 text-sm text-tinta/70">
+          Leva menos de um minuto. Assim conseguimos enviar novidades e materiais
+          quando você quiser.
+        </p>
+
+        <form id="form-manual" class="mt-6 grid gap-4" novalidate>
+          <input type="hidden" name="origem" value="Manual Trabalhista" />
+
+          <div>
+            <label class="rotulo-form" for="m-nome">Nome completo *</label>
+            <input
+              class="campo-form"
+              id="m-nome"
+              name="nome"
+              type="text"
+              required
+              autocomplete="name"
+              placeholder="Seu nome"
+            />
+          </div>
+
+          <div>
+            <label class="rotulo-form" for="m-email">E-mail *</label>
+            <input
+              class="campo-form"
+              id="m-email"
+              name="email"
+              type="email"
+              required
+              autocomplete="email"
+              placeholder="voce@email.com"
+            />
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label class="rotulo-form" for="m-whatsapp">WhatsApp</label>
+              <input
+                class="campo-form"
+                id="m-whatsapp"
+                name="whatsapp"
+                type="tel"
+                autocomplete="tel"
+                placeholder="(00) 00000-0000"
+              />
+            </div>
+            <div>
+              <label class="rotulo-form" for="m-cidade">Cidade / UF</label>
+              <input
+                class="campo-form"
+                id="m-cidade"
+                name="cidade_uf"
+                type="text"
+                placeholder="Cidade / Estado"
+              />
+            </div>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label class="rotulo-form" for="m-faixa">Faixa etária</label>
+              <select class="campo-form" id="m-faixa" name="faixa_etaria">
+                <option value="">Selecione</option>
+                {faixas.map((f) => <option value={f}>{f}</option>)}
+              </select>
+            </div>
+            <div>
+              <label class="rotulo-form" for="m-tema">Tema de interesse</label>
+              <select class="campo-form" id="m-tema" name="tema_interesse">
+                <option value="">Selecione</option>
+                {temas.map((t) => <option value={t}>{t}</option>)}
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="rotulo-form" for="m-profissao"
+              >Profissão / área de atuação</label
+            >
+            <input
+              class="campo-form"
+              id="m-profissao"
+              name="profissao"
+              type="text"
+              placeholder="Ex.: comerciário, professora, motorista de app"
+            />
+          </div>
+
+          <label class="consentimento-form" for="m-consent">
+            <input id="m-consent" type="checkbox" name="consentimento" required />
+            <span>
+              Li e autorizo o uso dos meus dados para receber comunicações,
+              materiais, convites e informações relacionadas ao Eduardo Reiner,
+              conforme a <a class="font-bold underline" href="/privacidade/"
+                >Política de Privacidade</a
+              >.
+            </span>
+          </label>
+
+          <button
+            type="submit"
+            class="btn-press mt-1 inline-flex items-center justify-center gap-2 rounded-full border-2 border-tinta bg-acao px-7 py-3.5 font-display text-sm font-bold uppercase tracking-wide text-creme hover:bg-acao-escuro"
+          >
+            Acessar o Manual
+            <Icon name="seta-direita" size={18} />
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { ligarFormulario, liberarManual } from "../../scripts/forms.ts";
+
+  const form = document.getElementById("form-manual") as HTMLFormElement | null;
+  if (form) {
+    ligarFormulario({
+      form,
+      origem: "manual",
+      aoConcluir: () => {
+        liberarManual();
+        window.location.href = "/manual/obrigado/";
+      },
+    });
+  }
+</script>

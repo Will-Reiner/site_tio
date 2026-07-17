@@ -1,0 +1,239 @@
+---
+import Base from "../../layouts/Base.astro";
+import CabecalhoPagina from "../../components/CabecalhoPagina.astro";
+import Botao from "../../components/Botao.astro";
+import Icon from "../../components/Icon.astro";
+import FaixaCta from "../../components/FaixaCta.astro";
+import { EVENTOS } from "../../data/eventos.ts";
+import { CTA } from "../../data/site.ts";
+
+const abertos = EVENTOS.filter((e) => !e.encerrado);
+const comoSoube = [
+  "Instagram",
+  "WhatsApp",
+  "Site",
+  "Indicação",
+  "QR Code",
+  "Sindicato",
+  "Entidade",
+  "Imprensa",
+  "Outro",
+];
+---
+
+<Base
+  title="Eventos"
+  description="Agenda de eventos e encontros do Eduardo Reiner. Retire seu convite e participe."
+>
+  <CabecalhoPagina
+    kicker="Agenda"
+    titulo="Eventos e encontros"
+    subtitulo="Participe presencialmente. Retire seu convite com poucos toques."
+  />
+
+  <section class="mx-auto max-w-6xl px-5 py-12 lg:px-8 lg:py-16">
+    {
+      abertos.length === 0 ? (
+        <div class="mx-auto max-w-2xl rounded-3xl border-2 border-tinta bg-creme p-8 text-center shadow-zine sm:p-10">
+          <span class="mx-auto grid h-14 w-14 place-items-center rounded-full border-2 border-tinta bg-ambar text-tinta">
+            <Icon name="local" size={26} />
+          </span>
+          <h2 class="mt-5 text-2xl font-bold">Em breve, novos eventos</h2>
+          <p class="mt-3 text-tinta/75">
+            Ainda não há eventos com inscrições abertas. Entre na comunidade para
+            ser avisado(a) em primeira mão sobre os próximos encontros.
+          </p>
+          <div class="mt-6 flex justify-center">
+            <Botao
+              href={CTA.whatsapp.href}
+              variante="whatsapp"
+              icone="whatsapp"
+            >
+              {CTA.whatsapp.label}
+            </Botao>
+          </div>
+        </div>
+      ) : (
+        <div class="grid gap-6 md:grid-cols-2">
+          {abertos.map((ev) => (
+            <article class="flex flex-col rounded-3xl border-2 border-tinta bg-creme p-6 shadow-zine sm:p-7">
+              <div class="flex flex-wrap items-center gap-2 font-display text-xs font-bold uppercase tracking-wide">
+                <span class="rounded-full bg-azul px-3 py-1 text-creme">
+                  {ev.data}
+                </span>
+                <span class="rounded-full border-2 border-tinta px-3 py-1 text-tinta">
+                  {ev.horario}
+                </span>
+              </div>
+              <h2 class="mt-4 text-2xl font-bold leading-tight">{ev.nome}</h2>
+              <p class="mt-2 flex items-center gap-2 text-sm font-semibold text-rosa-escuro">
+                <Icon name="local" size={16} />
+                {ev.cidade} · {ev.local}
+              </p>
+              <p class="mt-3 flex-1 leading-relaxed text-tinta/80">
+                {ev.descricao}
+              </p>
+              <div class="mt-6">
+                <button
+                  type="button"
+                  class="btn-press inline-flex items-center gap-2 rounded-full border-2 border-tinta bg-acao px-6 py-3 font-display text-sm font-bold uppercase tracking-wide text-creme hover:bg-acao-escuro"
+                  data-abrir-convite
+                  data-evento-slug={ev.slug}
+                  data-evento-nome={ev.nome}
+                >
+                  Retirar convite
+                  <Icon name="seta-direita" size={17} />
+                </button>
+              </div>
+            </article>
+          ))}
+        </div>
+      )
+    }
+  </section>
+
+  <FaixaCta
+    titulo="Quer levar o Eduardo até a sua cidade?"
+    texto="Fale com a gente pelo WhatsApp e ajude a organizar um encontro na sua região."
+  />
+
+  <!-- Modal: retirada de convite -->
+  <dialog id="dlg-convite" aria-labelledby="dlg-convite-titulo">
+    <div class="w-[min(92vw,34rem)] rounded-3xl border-2 border-tinta bg-creme">
+      <div
+        class="flex items-start justify-between gap-4 border-b-2 border-tinta/15 px-6 py-4"
+      >
+        <div>
+          <p
+            class="font-display text-xs font-bold uppercase tracking-[0.2em] text-rosa-escuro"
+          >
+            Retirada de convite
+          </p>
+          <h2 id="dlg-convite-titulo" class="text-xl font-bold leading-tight">
+            Garanta seu lugar
+          </h2>
+        </div>
+        <button
+          type="button"
+          data-fechar-modal
+          aria-label="Fechar"
+          class="btn-press grid h-9 w-9 shrink-0 place-items-center rounded-full border-2 border-tinta text-tinta"
+          >✕</button
+        >
+      </div>
+
+      <div class="max-h-[70svh] overflow-auto px-6 py-5">
+        <form id="form-convite" class="grid gap-4" novalidate>
+          <input type="hidden" name="origem" value="Eventos / Retirada de convite" />
+          <input type="hidden" name="evento" id="conv-evento" value="" />
+
+          <div>
+            <label class="rotulo-form" for="conv-nome">Nome completo *</label>
+            <input class="campo-form" id="conv-nome" name="nome" type="text" required autocomplete="name" />
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label class="rotulo-form" for="conv-email">E-mail *</label>
+              <input class="campo-form" id="conv-email" name="email" type="email" required autocomplete="email" />
+            </div>
+            <div>
+              <label class="rotulo-form" for="conv-whatsapp">WhatsApp *</label>
+              <input class="campo-form" id="conv-whatsapp" name="whatsapp" type="tel" required autocomplete="tel" />
+            </div>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label class="rotulo-form" for="conv-cidade">Cidade / UF</label>
+              <input class="campo-form" id="conv-cidade" name="cidade_uf" type="text" />
+            </div>
+            <div>
+              <label class="rotulo-form" for="conv-qtd">Quantidade de convites</label>
+              <input class="campo-form" id="conv-qtd" name="quantidade" type="number" min="1" max="10" value="1" />
+            </div>
+          </div>
+          <div>
+            <label class="rotulo-form" for="conv-soube">Como soube do evento?</label>
+            <select class="campo-form" id="conv-soube" name="como_soube">
+              <option value="">Selecione</option>
+              {comoSoube.map((c) => <option value={c}>{c}</option>)}
+            </select>
+          </div>
+
+          <label class="consentimento-form" for="conv-consent">
+            <input id="conv-consent" type="checkbox" name="consentimento" required />
+            <span>
+              Autorizo o uso dos meus dados para confirmação de inscrição, envio
+              de lembretes do evento, certificados quando houver e comunicações
+              futuras relacionadas ao Eduardo Reiner, conforme a
+              <a class="font-bold underline" href="/privacidade/">Política de Privacidade</a>.
+            </span>
+          </label>
+
+          <button
+            type="submit"
+            class="btn-press inline-flex items-center justify-center gap-2 rounded-full border-2 border-tinta bg-acao px-7 py-3.5 font-display text-sm font-bold uppercase tracking-wide text-creme hover:bg-acao-escuro"
+          >
+            Confirmar inscrição
+          </button>
+        </form>
+
+        <div id="convite-sucesso" hidden class="py-4 text-center">
+          <span
+            class="mx-auto grid h-14 w-14 place-items-center rounded-full border-2 border-tinta bg-rosa text-creme"
+          >
+            <Icon name="check" size={26} />
+          </span>
+          <h3 class="mt-4 text-xl font-bold">Inscrição confirmada</h3>
+          <p class="mt-2 text-tinta/75">
+            Enviaremos as informações do evento para o e-mail e WhatsApp
+            cadastrados. Guarde seus dados de confirmação.
+          </p>
+          <button
+            type="button"
+            data-fechar-modal
+            class="btn-press mt-5 rounded-full border-2 border-tinta bg-creme px-6 py-2.5 font-display text-sm font-bold uppercase tracking-wide"
+            >Fechar</button
+          >
+        </div>
+      </div>
+    </div>
+  </dialog>
+</Base>
+
+<script>
+  import { ligarFormulario } from "../../scripts/forms.ts";
+
+  const dlg = document.getElementById("dlg-convite") as HTMLDialogElement | null;
+  const form = document.getElementById("form-convite") as HTMLFormElement | null;
+  const sucesso = document.getElementById("convite-sucesso");
+  const campoEvento = document.getElementById("conv-evento") as HTMLInputElement | null;
+  const titulo = document.getElementById("dlg-convite-titulo");
+
+  document.querySelectorAll<HTMLButtonElement>("[data-abrir-convite]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (campoEvento) campoEvento.value = btn.dataset.eventoNome || "";
+      if (titulo) titulo.textContent = btn.dataset.eventoNome || "Garanta seu lugar";
+      if (form) form.hidden = false;
+      if (sucesso) sucesso.hidden = true;
+      dlg?.showModal();
+    });
+  });
+
+  document.querySelectorAll<HTMLButtonElement>("[data-fechar-modal]").forEach((b) => {
+    b.addEventListener("click", () => b.closest("dialog")?.close());
+  });
+  dlg?.addEventListener("click", (e) => {
+    if (e.target === dlg) dlg.close();
+  });
+
+  if (form) {
+    ligarFormulario({
+      form,
+      origem: "eventos",
+      aoConcluir: () => {
+        form.hidden = true;
+        if (sucesso) sucesso.hidden = false;
+      },
+    });
+  }
+</script>

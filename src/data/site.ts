@@ -21,23 +21,24 @@ export const SITE = {
 export const NAV = [
   { href: "/", label: "Início" },
   { href: "/minha-historia/", label: "Minha História" },
-  { href: "/lutas/", label: "Lutas" },
+  { href: "/manual/", label: "Manual Trabalhista" },
+  { href: "/eventos/", label: "Eventos" },
   { href: "/na-midia/", label: "Na Mídia" },
 ] as const;
 
 // --- Botões de ação (CTAs) ---
-// Links de teste enquanto o cliente não envia os finais.
 export const CTA = {
   whatsapp: {
-    // Comunidade no WhatsApp (provisório — número 61 99837-8070).
-    href: "https://wa.me/5561998378070",
-    label: "Entrar na comunidade",
-    labelCurto: "Comunidade",
+    // WhatsApp de contato direto — número oficial +55 41 8492-1322.
+    // (Quando o cliente enviar o link da COMUNIDADE — convite chat.whatsapp.com —
+    // criar um CTA separado; por ora este é o canal de conversa direta.)
+    href: "https://wa.me/554184921322",
+    label: "Falar no WhatsApp",
+    labelCurto: "WhatsApp",
   },
   doar: {
-    // Apoio via Vakinha (provisório — apontando para o site da Vakinha
-    // só para teste; trocar pela URL da campanha quando houver).
-    href: "https://www.vakinha.com.br/",
+    // Apoio via vakinha oficial da campanha.
+    href: "https://queroapoiar.com.br/eduardoreiner",
     // Obs. pré-campanha: confirmar rótulo e conformidade com a assessoria
     // jurídica — "Quero apoiar" tende a ser mais seguro antes do registro
     // oficial de candidatura do que "Doar".

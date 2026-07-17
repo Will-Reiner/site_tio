@@ -1,0 +1,33 @@
+---
+import { LINHA_DO_TEMPO } from "../data/timeline.ts";
+
+const temProvisorio = LINHA_DO_TEMPO.some((m) => m.provisorio);
+---
+
+<ol class="relative ml-3 border-l-2 border-tinta/20 pl-8 sm:ml-4">
+  {
+    LINHA_DO_TEMPO.map((m) => (
+      <li class="relative pb-9 last:pb-0">
+        {/* Marcador na linha */}
+        <span
+          class="absolute -left-[calc(2rem+1px)] top-1.5 grid h-4 w-4 -translate-x-1/2 place-items-center rounded-full border-2 border-tinta bg-rosa"
+          aria-hidden="true"
+        />
+        <span class="inline-block rounded-full bg-azul px-3 py-1 font-display text-xs font-bold uppercase tracking-wide text-creme">
+          {m.ano}
+          {m.provisorio && <span class="opacity-70">*</span>}
+        </span>
+        <h3 class="mt-3 text-xl font-bold leading-tight">{m.titulo}</h3>
+        <p class="mt-1.5 leading-relaxed text-tinta/80">{m.texto}</p>
+      </li>
+    ))
+  }
+</ol>
+
+{
+  temProvisorio && (
+    <p class="mt-6 text-sm text-tinta/55">
+      * Períodos e datas ainda a confirmar com o Eduardo.
+    </p>
+  )
+}

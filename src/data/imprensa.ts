@@ -8,39 +8,21 @@ export interface ItemImprensa {
   data: string;
   url: string;
   resumo: string;
-  imagem?: "entrevista";
+  imagem?: "entrevista" | "audiencia";
   destaque?: boolean;
   provisorio?: boolean;
 }
 
 export const IMPRENSA: ItemImprensa[] = [
   {
-    titulo: "“O auditor fiscal protege quem trabalha”",
-    veiculo: "G1 · RBS TV",
-    data: "2024", // TODO: data real
-    url: "#", // TODO: link da matéria
+    titulo:
+      "Audiência pública sobre o combate ao trabalho escravo contemporâneo",
+    veiculo: "Câmara dos Deputados",
+    data: "12 de maio de 2026",
+    url: "https://www.camara.leg.br/evento-legislativo/81921",
     resumo:
-      "Em entrevista, Eduardo Reiner explica o papel da inspeção do trabalho na proteção de direitos e na segurança de quem está no batente.",
-    imagem: "entrevista",
+      "Eduardo Reiner participa da audiência pública “Desafios do combate ao trabalho escravo contemporâneo no Brasil”, na Comissão de Direitos Humanos, Minorias e Igualdade Racial. Sua fala vai de 7min18 a 16min42.",
+    imagem: "audiencia",
     destaque: true,
-    provisorio: true,
-  },
-  {
-    titulo: "Especialista comenta segurança e saúde no trabalho",
-    veiculo: "Veículo de imprensa", // TODO
-    data: "2024",
-    url: "#",
-    resumo:
-      "Participação debatendo prevenção de acidentes e a importância da fiscalização para empresas e trabalhadores.",
-    provisorio: true,
-  },
-  {
-    titulo: "Artigo: o trabalho que sustenta o Brasil",
-    veiculo: "Coluna / Portal", // TODO
-    data: "2024",
-    url: "#",
-    resumo:
-      "Texto de opinião sobre valorização do trabalho, geração de renda e o futuro do emprego no país.",
-    provisorio: true,
   },
 ];

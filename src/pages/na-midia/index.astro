@@ -9,9 +9,10 @@ import FaixaCta from "../../components/FaixaCta.astro";
 import Icon from "../../components/Icon.astro";
 import { IMPRENSA } from "../../data/imprensa.ts";
 import entrevista from "../../assets/eduardo-entrevista.jpeg";
+import audiencia from "../../assets/eduardo-audiencia.jpeg";
 import artePopart from "../../assets/eduardo-arte-popart.jpeg";
 
-const imgMap: Record<string, ImageMetadata> = { entrevista };
+const imgMap: Record<string, ImageMetadata> = { entrevista, audiencia };
 const posts = (
   await getCollection("blog", ({ data }) => !data.rascunho)
 ).sort((a, b) => b.data.data.getTime() - a.data.data.getTime());
@@ -25,7 +26,7 @@ const fmt = (d: Date) =>
 
 <Base
   title="Na Mídia"
-  description="Meus vídeos, entrevistas e artigos sobre trabalho, direitos e o futuro do Brasil — e minhas redes sociais."
+  description="Meus vídeos, entrevistas e artigos sobre trabalho, direitos e o futuro do Brasil, e minhas redes sociais."
 >
   <h1 class="sr-only">Na mídia</h1>
 

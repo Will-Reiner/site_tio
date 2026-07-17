@@ -10,6 +10,7 @@ interface Props {
     | "contorno"
     | "contorno-claro"
     | "azul"
+    | "acao"
     | "whatsapp";
   tamanho?: "sm" | "md" | "lg";
   icone?: string; // ícone à esquerda
@@ -38,7 +39,9 @@ const variantes: Record<string, string> = {
   contorno: "border-tinta bg-transparent text-tinta hover:bg-tinta hover:text-creme",
   "contorno-claro":
     "border-creme bg-transparent text-creme hover:bg-creme hover:text-tinta",
-  azul: "border-tinta bg-azul text-tinta hover:brightness-105",
+  azul: "border-tinta bg-azul text-creme hover:brightness-110",
+  // Vermelho de ação — botões de mobilização (Apoiar, Acessar Manual, etc.).
+  acao: "border-tinta bg-acao text-creme hover:bg-acao-escuro",
   whatsapp: "border-tinta bg-[#25D366] text-tinta hover:brightness-105",
 };
 

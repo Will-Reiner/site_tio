@@ -18,7 +18,7 @@ const isActive = (href: string) =>
     <a
       href="/"
       class="flex shrink-0 flex-col gap-0.5 leading-none"
-      aria-label="Eduardo Reiner — página inicial"
+      aria-label="Eduardo Reiner, página inicial"
     >
       <span
         class="font-display text-lg font-extrabold uppercase leading-none tracking-tight text-tinta sm:text-xl"
@@ -31,20 +31,20 @@ const isActive = (href: string) =>
     </a>
 
     <!-- Navegação (desktop) -->
-    <nav class="hidden items-center gap-1 lg:flex" aria-label="Principal">
+    <nav class="hidden items-center gap-0.5 xl:flex" aria-label="Principal">
       {
         NAV.map((item) => (
           <a
             href={item.href}
             aria-current={isActive(item.href) ? "page" : undefined}
             class:list={[
-              "relative px-3 py-2 font-display text-sm font-semibold uppercase tracking-wide transition-colors hover:text-rosa-escuro",
-              isActive(item.href) ? "text-rosa-escuro" : "text-tinta",
+              "relative px-2.5 py-2 font-display text-[0.8rem] font-semibold uppercase tracking-wide transition-colors hover:text-azul-escuro",
+              isActive(item.href) ? "text-azul-escuro" : "text-tinta",
             ]}
           >
             {item.label}
             {isActive(item.href) && (
-              <span class="absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-rosa" />
+              <span class="absolute inset-x-2.5 -bottom-0.5 h-0.5 rounded-full bg-azul" />
             )}
           </a>
         ))
@@ -61,13 +61,13 @@ const isActive = (href: string) =>
           icone="whatsapp">{CTA.whatsapp.labelCurto}</Botao
         >
       </span>
-      <Botao href={CTA.doar.href} variante="rosa" tamanho="sm"
+      <Botao href={CTA.doar.href} variante="acao" tamanho="sm"
         >{CTA.doar.labelCurto}</Botao
       >
       <button
         id="abrir-menu"
         type="button"
-        class="btn-press grid h-10 w-10 place-items-center rounded-xl border-2 border-tinta lg:hidden"
+        class="btn-press grid h-10 w-10 place-items-center rounded-xl border-2 border-tinta xl:hidden"
         aria-label="Abrir menu"
         aria-expanded="false"
         aria-controls="menu-mobile"
@@ -78,7 +78,7 @@ const isActive = (href: string) =>
   </div>
 
   <!-- Menu (mobile) -->
-  <div id="menu-mobile" hidden class="border-t-2 border-tinta bg-branco lg:hidden">
+  <div id="menu-mobile" hidden class="border-t-2 border-tinta bg-branco xl:hidden">
     <nav
       class="mx-auto flex max-w-7xl flex-col gap-1 px-5 py-4"
       aria-label="Principal (mobile)"
@@ -91,7 +91,7 @@ const isActive = (href: string) =>
             class:list={[
               "rounded-xl px-4 py-3 font-display text-lg font-bold uppercase tracking-wide",
               isActive(item.href)
-                ? "bg-rosa text-creme"
+                ? "bg-azul text-creme"
                 : "hover:bg-creme-200",
             ]}
           >
@@ -106,7 +106,7 @@ const isActive = (href: string) =>
           tamanho="md"
           icone="whatsapp">{CTA.whatsapp.label}</Botao
         >
-        <Botao href={CTA.doar.href} variante="rosa" tamanho="md"
+        <Botao href={CTA.doar.href} variante="acao" tamanho="md"
           >{CTA.doar.label}</Botao
         >
       </div>

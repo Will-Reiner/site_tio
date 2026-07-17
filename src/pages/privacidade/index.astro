@@ -1,0 +1,93 @@
+---
+import Base from "../../layouts/Base.astro";
+import CabecalhoPagina from "../../components/CabecalhoPagina.astro";
+import { SITE } from "../../data/site.ts";
+
+const atualizacao = "julho de 2026";
+---
+
+<Base
+  title="Política de Privacidade"
+  description="Como os dados informados nos formulários do site de Eduardo Reiner são coletados, usados e protegidos, conforme a LGPD."
+>
+  <CabecalhoPagina
+    kicker="LGPD"
+    titulo="Política de Privacidade"
+    subtitulo="Como tratamos os dados que você compartilha com a gente."
+  />
+
+  <section class="mx-auto max-w-3xl px-5 py-12 lg:px-8 lg:py-16">
+    <div
+      class="mb-8 rounded-2xl border-2 border-azul/30 bg-ambar px-4 py-3 text-sm leading-relaxed text-tinta"
+    >
+      <strong>Texto provisório.</strong> Esta política ainda passará por revisão jurídica
+      antes da publicação definitiva. Última atualização: {atualizacao}.
+    </div>
+
+    <div class="conteudo-md">
+      <h3>1. Quem é o responsável pelos dados</h3>
+      <p>
+        Os dados coletados neste site são tratados no âmbito das atividades
+        públicas e institucionais de {SITE.nome} ({SITE.profissao},
+        {SITE.cargo}). O contato para assuntos de privacidade é feito pelos
+        canais oficiais divulgados no próprio site.
+      </p>
+
+      <h3>2. Quais dados coletamos</h3>
+      <p>
+        Coletamos apenas os dados que você informa voluntariamente nos
+        formulários (por exemplo: nome, e-mail, WhatsApp, cidade/estado,
+        profissão, faixa etária, temas de interesse e, na lista de presença de
+        eventos, dados necessários para emissão de certificado). Registramos
+        também a data, o horário, a origem do cadastro e a versão do texto de
+        consentimento aceito.
+      </p>
+
+      <h3>3. Para que usamos os dados</h3>
+      <p>Usamos os dados, mediante o seu consentimento, para:</p>
+      <ul>
+        <li>enviar comunicações, materiais e convites;</li>
+        <li>confirmar inscrições e enviar lembretes e certificados de eventos;</li>
+        <li>liberar o acesso a ferramentas como o Manual de Direitos Trabalhistas;</li>
+        <li>
+          organizar e segmentar contatos por interesse, cidade e participação em
+          eventos.
+        </li>
+      </ul>
+
+      <h3>4. Base legal (LGPD)</h3>
+      <p>
+        O tratamento é feito com base no seu <strong>consentimento</strong> (art.
+        7º, I, da Lei nº 13.709/2018, a LGPD), registrado no momento do envio de
+        cada formulário. Você pode retirar o consentimento a qualquer momento.
+      </p>
+
+      <h3>5. Compartilhamento</h3>
+      <p>
+        Podemos utilizar ferramentas de CRM e de envio de e-mail para operar
+        essas comunicações. Não vendemos seus dados. Eventuais fornecedores
+        atuam como operadores, seguindo esta política e a legislação aplicável.
+      </p>
+
+      <h3>6. Seus direitos</h3>
+      <p>
+        Você pode, a qualquer momento, solicitar acesso, correção, exclusão ou
+        portabilidade dos seus dados, além de revogar o consentimento e cancelar
+        o recebimento de comunicações (link de descadastro presente em todos os
+        e-mails).
+      </p>
+
+      <h3>7. Segurança e retenção</h3>
+      <p>
+        Adotamos medidas para proteger os dados e os mantemos apenas pelo tempo
+        necessário às finalidades acima ou enquanto durar o consentimento.
+      </p>
+
+      <h3>8. Alterações</h3>
+      <p>
+        Esta política pode ser atualizada. A versão vigente estará sempre
+        disponível nesta página.
+      </p>
+    </div>
+  </section>
+</Base>

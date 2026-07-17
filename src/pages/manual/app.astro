@@ -1,0 +1,312 @@
+---
+import Base from "../../layouts/Base.astro";
+import { MODULOS } from "../../data/manual.ts";
+import { REDES } from "../../data/site.ts";
+
+const instagram =
+  REDES.find((r) => r.rede === "instagram")?.href ??
+  "https://instagram.com/eduardo.reiner";
+
+// Estrutura enxuta que o app consome no cliente.
+const dados = MODULOS.map((m) => ({
+  nome: m.nome,
+  slug: m.slug,
+  perguntas: m.perguntas.map((p) => ({
+    id: p.id,
+    pergunta: p.pergunta,
+    tema: p.tema,
+    resposta: p.resposta,
+    fundamento: p.fundamento,
+    fontes: p.fontes,
+    encaminhamento: p.encaminhamento,
+    jurisprudencia: p.jurisprudencia,
+  })),
+}));
+---
+
+<Base
+  title="Manual de Direitos Trabalhistas"
+  description="Manual interativo de direitos trabalhistas por Eduardo Reiner."
+  noindex={true}
+>
+  <section class="mx-auto max-w-3xl px-5 pt-8 lg:px-8">
+    <h1 class="sr-only">Manual de Direitos Trabalhistas</h1>
+    <p
+      class="inline-flex items-center gap-2 font-display text-xs font-bold uppercase tracking-[0.2em] text-rosa-escuro"
+    >
+      <span class="h-px w-6 bg-rosa"></span>
+      Manual de Direitos Trabalhistas
+    </p>
+  </section>
+
+  <!-- Aplicativo (navegação por botões, renderizada no cliente) -->
+  <section class="mx-auto max-w-3xl px-5 py-8 lg:px-8">
+    <div id="app-root" data-instagram={instagram} aria-live="polite"></div>
+
+    <noscript>
+      <p class="rounded-2xl border-2 border-tinta bg-creme p-5 text-tinta">
+        Este manual precisa de JavaScript para funcionar. Se preferir, fale
+        direto com o Eduardo pelo
+        <a class="font-bold underline" href={instagram}>Instagram</a>.
+      </p>
+    </noscript>
+  </section>
+
+  <!-- Biblioteca jurídica + denúncia (estático, sempre visível) -->
+  <section class="mx-auto max-w-3xl px-5 pb-4 lg:px-8">
+    <h2 class="text-xl font-bold">Biblioteca jurídica</h2>
+    <div class="mt-4 grid gap-3 sm:grid-cols-3">
+      <div class="rounded-2xl border-2 border-tinta bg-creme p-4">
+        <h3 class="font-display text-sm font-bold text-rosa-escuro">Leis</h3>
+        <ul class="mt-2 space-y-1.5 text-sm">
+          <li>
+            <a
+              class="underline"
+              target="_blank"
+              rel="noopener"
+              href="https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452compilado.htm"
+              >CLT compilada</a
+            >
+          </li>
+          <li>
+            <a
+              class="underline"
+              target="_blank"
+              rel="noopener"
+              href="https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
+              >Constituição Federal</a
+            >
+          </li>
+          <li>
+            <a
+              class="underline"
+              target="_blank"
+              rel="noopener"
+              href="https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11788.htm"
+              >Lei do estágio</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="rounded-2xl border-2 border-tinta bg-creme p-4">
+        <h3 class="font-display text-sm font-bold text-rosa-escuro">
+          Jurisprudência
+        </h3>
+        <ul class="mt-2 space-y-1.5 text-sm">
+          <li>
+            <a
+              class="underline"
+              target="_blank"
+              rel="noopener"
+              href="https://www.tst.jus.br/livro-de-sumulas-ojs-e-pns"
+              >Súmulas do TST</a
+            >
+          </li>
+          <li>
+            <a
+              class="underline"
+              target="_blank"
+              rel="noopener"
+              href="https://portal.stf.jus.br/jurisprudencia/">Jurisprudência do STF</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="rounded-2xl border-2 border-tinta bg-creme p-4">
+        <h3 class="font-display text-sm font-bold text-rosa-escuro">Órgãos</h3>
+        <ul class="mt-2 space-y-1.5 text-sm">
+          <li>
+            <a
+              class="underline"
+              target="_blank"
+              rel="noopener"
+              href="https://www.gov.br/trabalho-e-emprego/pt-br"
+              >Ministério do Trabalho e Emprego</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-6 text-center">
+      <a
+        class="btn-press inline-flex items-center gap-2 rounded-full border-2 border-tinta bg-acao px-6 py-3 font-display text-sm font-bold uppercase tracking-wide text-creme hover:bg-acao-escuro"
+        href="https://denuncia.sit.trabalho.gov.br/home"
+        target="_blank"
+        rel="noopener">Fazer denúncia trabalhista</a
+      >
+      <p class="mt-2 text-xs text-tinta/60">
+        Canal oficial do Ministério do Trabalho e Emprego.
+      </p>
+    </div>
+  </section>
+
+  <!-- Dados do manual, injetados para o app -->
+  <script type="application/json" id="manual-dados" set:html={JSON.stringify(dados)}
+  ></script>
+</Base>
+
+<script>
+  import { temAcessoManual } from "../../scripts/forms.ts";
+
+  // Gate leve: sem liberação (formulário preenchido), volta para a landing.
+  if (!temAcessoManual()) {
+    window.location.replace("/manual/");
+  }
+
+  interface Pergunta {
+    id: string;
+    pergunta: string;
+    tema?: string;
+    resposta: string;
+    fundamento?: string;
+    fontes: string[];
+    encaminhamento?: string;
+    jurisprudencia?: string;
+  }
+  interface Modulo {
+    nome: string;
+    slug: string;
+    perguntas: Pergunta[];
+  }
+
+  const root = document.getElementById("app-root");
+  const dadosEl = document.getElementById("manual-dados");
+  if (root && dadosEl) {
+    const dados: Modulo[] = JSON.parse(dadosEl.textContent || "[]");
+    const IG = root.dataset.instagram || "https://instagram.com/eduardo.reiner";
+    let moduloCorrente = "";
+
+    const esc = (s: string) =>
+      String(s ?? "").replace(
+        /[&<>"]/g,
+        (c) =>
+          ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c] || c,
+      );
+    const host = (u: string) => {
+      try {
+        return new URL(u).hostname.replace(/^www\./, "");
+      } catch {
+        return u;
+      }
+    };
+
+    // Cores de acento da barra lateral (inline garante que vencem no cascade).
+    const acentos = ["#0b57a4", "#0b6b4b", "#0a2540", "#12805a"];
+
+    const naoEncontrei = () => `
+      <div class="mt-8 text-center">
+        <a class="btn-press inline-flex items-center gap-2 rounded-full border-2 border-tinta bg-acao px-6 py-3 font-display text-sm font-bold uppercase tracking-wide text-creme hover:bg-acao-escuro" href="${IG}" target="_blank" rel="noopener">Não encontrei minha dúvida →</a>
+      </div>`;
+
+    const voltar = (dest: string, label: string, slug = "") => `
+      <button class="btn-press mb-5 inline-flex items-center gap-1.5 rounded-full border-2 border-tinta bg-creme px-4 py-2 font-display text-xs font-bold uppercase tracking-wide" data-voltar="${dest}" ${slug ? `data-slug="${esc(slug)}"` : ""}>← ${esc(label)}</button>`;
+
+    function viewModulos(rolar = true) {
+      moduloCorrente = "";
+      root.innerHTML = `
+        <div class="grid gap-3 sm:grid-cols-2">
+          ${dados
+            .map(
+              (m, i) => `
+            <button class="btn-press flex items-center justify-between gap-3 rounded-2xl border-2 border-l-8 border-tinta bg-creme px-5 py-4 text-left hover:-translate-y-0.5 hover:shadow-zine" style="border-left-color:${acentos[i % acentos.length]}" data-modulo="${esc(m.slug)}">
+              <span class="font-display text-base font-bold leading-tight text-tinta">${esc(m.nome)}</span>
+              <span class="shrink-0 font-display text-lg text-rosa" aria-hidden="true">→</span>
+            </button>`,
+            )
+            .join("")}
+        </div>
+        ${naoEncontrei()}`;
+      bind();
+      if (rolar) foco();
+    }
+
+    function viewPerguntas(slug: string) {
+      const m = dados.find((x) => x.slug === slug);
+      if (!m) return viewModulos();
+      moduloCorrente = slug;
+      root.innerHTML = `
+        ${voltar("modulos", "Todos os temas")}
+        <h2 class="text-2xl font-bold leading-tight">${esc(m.nome)}</h2>
+        <p class="mt-1 text-sm text-tinta/60">Toque na pergunta mais parecida com a sua.</p>
+        <div class="mt-5 grid gap-2">
+          ${m.perguntas
+            .map(
+              (p) => `
+            <button class="btn-press flex items-center justify-between gap-3 rounded-xl border-2 border-tinta bg-creme px-4 py-3 text-left hover:bg-ambar" data-pergunta="${esc(p.id)}">
+              <span class="text-[0.95rem] font-semibold leading-snug text-tinta">${esc(p.pergunta)}</span>
+              <span class="shrink-0 font-display text-rosa">→</span>
+            </button>`,
+            )
+            .join("")}
+        </div>
+        ${naoEncontrei()}`;
+      bind();
+      foco();
+    }
+
+    function viewResposta(slug: string, id: string) {
+      const m = dados.find((x) => x.slug === slug);
+      const p = m?.perguntas.find((q) => q.id === id);
+      if (!m || !p) return viewModulos();
+      const fontes = (p.fontes || [])
+        .map(
+          (f) =>
+            `<li><a class="underline" href="${esc(f)}" target="_blank" rel="noopener">${esc(host(f))}</a></li>`,
+        )
+        .join("");
+      root.innerHTML = `
+        ${voltar("perguntas", "Voltar às perguntas", slug)}
+        <article class="rounded-3xl border-2 border-tinta bg-creme p-6 shadow-zine sm:p-7">
+          ${p.tema ? `<span class="inline-block rounded-full bg-rosa/10 px-3 py-1 font-display text-xs font-bold uppercase tracking-wide text-rosa-escuro">${esc(p.tema)}</span>` : ""}
+          <h2 class="mt-3 text-xl font-bold leading-tight sm:text-2xl">${esc(p.pergunta)}</h2>
+          <p class="mt-4 text-[1.05rem] leading-relaxed text-tinta/90">${esc(p.resposta)}</p>
+          ${
+            p.encaminhamento
+              ? `<div class="mt-4 rounded-xl border-l-4 border-azul bg-azul/5 px-4 py-3 text-sm leading-relaxed text-tinta/80"><strong class="text-azul-escuro">Próximo passo:</strong> ${esc(p.encaminhamento)}</div>`
+              : ""
+          }
+          <details class="group mt-4 rounded-xl border-2 border-tinta/15 bg-white px-4 py-3">
+            <summary class="cursor-pointer font-display text-sm font-bold text-azul-escuro">Ver base jurídica</summary>
+            <div class="mt-3 space-y-2 text-sm leading-relaxed text-tinta/80">
+              ${p.fundamento ? `<p><strong>Fundamento legal:</strong> ${esc(p.fundamento)}</p>` : ""}
+              ${p.jurisprudencia ? `<p><strong>Jurisprudência:</strong> ${esc(p.jurisprudencia)}</p>` : ""}
+              ${fontes ? `<div><strong>Fontes oficiais:</strong><ul class="mt-1 space-y-1">${fontes}</ul></div>` : ""}
+            </div>
+          </details>
+        </article>
+        ${naoEncontrei()}`;
+      bind();
+      foco();
+    }
+
+    function bind() {
+      root
+        .querySelectorAll<HTMLButtonElement>("[data-modulo]")
+        .forEach((b) => (b.onclick = () => viewPerguntas(b.dataset.modulo || "")));
+      root
+        .querySelectorAll<HTMLButtonElement>("[data-pergunta]")
+        .forEach(
+          (b) =>
+            (b.onclick = () =>
+              viewResposta(moduloCorrente, b.dataset.pergunta || "")),
+        );
+      root
+        .querySelectorAll<HTMLButtonElement>("[data-voltar]")
+        .forEach(
+          (b) =>
+            (b.onclick = () => {
+              if (b.dataset.voltar === "modulos") viewModulos();
+              else viewPerguntas(b.dataset.slug || moduloCorrente);
+            }),
+        );
+    }
+
+    // Leva o foco/rolagem ao topo do app a cada troca de tela.
+    function foco() {
+      root.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    viewModulos(false);
+  }
+</script>

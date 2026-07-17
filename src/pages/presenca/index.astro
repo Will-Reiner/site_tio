@@ -1,0 +1,176 @@
+---
+import Base from "../../layouts/Base.astro";
+import Icon from "../../components/Icon.astro";
+import { EVENTOS } from "../../data/eventos.ts";
+
+// Mapa slug → nome do evento, para o QR Code preencher o campo oculto.
+const eventosMapa = Object.fromEntries(EVENTOS.map((e) => [e.slug, e.nome]));
+---
+
+<Base
+  title="Lista de presença"
+  description="Confirme sua presença no evento e receba o certificado por e-mail."
+  noindex={true}
+>
+  <section class="mx-auto max-w-lg px-5 py-10 lg:py-14">
+    <div class="text-center">
+      <p
+        class="inline-flex items-center gap-2 font-display text-xs font-bold uppercase tracking-[0.2em] text-rosa-escuro"
+      >
+        <span class="h-px w-6 bg-rosa"></span>
+        Lista de presença
+      </p>
+      <h1 class="mt-3 text-3xl font-bold leading-tight sm:text-4xl">
+        Confirme sua presença
+      </h1>
+      <p id="presenca-evento" class="mt-2 font-semibold text-azul-escuro"></p>
+      <p class="mt-2 text-sm text-tinta/70">
+        Preencha para registrar sua participação e receber o certificado por
+        e-mail, conforme a organização do evento.
+      </p>
+    </div>
+
+    <div
+      class="mt-7 rounded-3xl border-2 border-tinta bg-creme p-6 shadow-zine sm:p-7"
+    >
+      <form id="form-presenca" class="grid gap-4" novalidate>
+        <input type="hidden" name="origem" value="QR Code presencial" />
+        <input type="hidden" name="evento" id="pres-evento" value="" />
+
+        <div>
+          <label class="rotulo-form" for="pres-nome"
+            >Nome completo (como no certificado) *</label
+          >
+          <input
+            class="campo-form"
+            id="pres-nome"
+            name="nome"
+            type="text"
+            required
+            autocomplete="name"
+          />
+        </div>
+        <div>
+          <label class="rotulo-form" for="pres-email">E-mail *</label>
+          <input
+            class="campo-form"
+            id="pres-email"
+            name="email"
+            type="email"
+            required
+            autocomplete="email"
+          />
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label class="rotulo-form" for="pres-whatsapp">WhatsApp *</label>
+            <input
+              class="campo-form"
+              id="pres-whatsapp"
+              name="whatsapp"
+              type="tel"
+              required
+              autocomplete="tel"
+            />
+          </div>
+          <div>
+            <label class="rotulo-form" for="pres-cidade">Cidade / UF</label>
+            <input class="campo-form" id="pres-cidade" name="cidade_uf" type="text" />
+          </div>
+        </div>
+        <div>
+          <label class="rotulo-form" for="pres-atuacao"
+            >Profissão, entidade, sindicato ou instituição</label
+          >
+          <input class="campo-form" id="pres-atuacao" name="atuacao" type="text" />
+        </div>
+
+        {/* CPF omitido de propósito: só coletar se for indispensável para a
+            emissão do certificado pela plataforma, para reduzir dados sensíveis. */}
+
+        <label
+          class="flex items-start gap-3 text-sm leading-relaxed text-tinta/85"
+          for="pres-cert"
+        >
+          <input
+            id="pres-cert"
+            type="checkbox"
+            name="deseja_certificado"
+            class="mt-0.5 h-4 w-4"
+            checked
+          />
+          <span>Desejo receber o certificado por e-mail.</span>
+        </label>
+
+        <label class="consentimento-form" for="pres-consent">
+          <input id="pres-consent" type="checkbox" name="consentimento" required />
+          <span>
+            Confirmo minha presença no evento e autorizo o uso dos meus dados
+            para lista de presença, emissão/envio de certificado, comunicações
+            sobre o evento e futuras comunicações relacionadas ao Eduardo Reiner,
+            conforme a <a class="font-bold underline" href="/privacidade/"
+              >Política de Privacidade</a
+            >.
+          </span>
+        </label>
+
+        <button
+          type="submit"
+          class="btn-press inline-flex items-center justify-center gap-2 rounded-full border-2 border-tinta bg-acao px-7 py-3.5 font-display text-sm font-bold uppercase tracking-wide text-creme hover:bg-acao-escuro"
+        >
+          Registrar presença
+        </button>
+      </form>
+
+      <div id="presenca-sucesso" hidden class="py-4 text-center">
+        <span
+          class="mx-auto grid h-14 w-14 place-items-center rounded-full border-2 border-tinta bg-rosa text-creme"
+        >
+          <Icon name="check" size={26} />
+        </span>
+        <h2 class="mt-4 text-xl font-bold">Presença registrada</h2>
+        <p class="mt-2 text-tinta/75">
+          Você receberá as informações e o certificado pelo e-mail informado,
+          conforme a organização do evento.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <script
+    type="application/json"
+    id="eventos-mapa"
+    set:html={JSON.stringify(eventosMapa)}
+  ></script>
+</Base>
+
+<script>
+  import { ligarFormulario } from "../../scripts/forms.ts";
+
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get("evento") || "";
+  const mapaEl = document.getElementById("eventos-mapa");
+  const mapa: Record<string, string> = mapaEl
+    ? JSON.parse(mapaEl.textContent || "{}")
+    : {};
+  const nome = mapa[slug] || (slug ? slug : "");
+
+  const campoEvento = document.getElementById("pres-evento") as HTMLInputElement | null;
+  if (campoEvento) campoEvento.value = nome;
+  const rotuloEvento = document.getElementById("presenca-evento");
+  if (rotuloEvento && nome) rotuloEvento.textContent = nome;
+
+  const form = document.getElementById("form-presenca") as HTMLFormElement | null;
+  const sucesso = document.getElementById("presenca-sucesso");
+  if (form) {
+    ligarFormulario({
+      form,
+      origem: "presenca",
+      aoConcluir: () => {
+        form.hidden = true;
+        if (sucesso) sucesso.hidden = false;
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      },
+    });
+  }
+</script>

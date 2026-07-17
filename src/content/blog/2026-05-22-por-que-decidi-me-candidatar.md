@@ -12,7 +12,7 @@ que mais importa: gente. Gente que acorda cedo, que sustenta a família, que
 constrói o Brasil todos os dias e que nem sempre tem quem a defenda.
 
 Foi olhando para essas pessoas que tomei a decisão de me pré-candidatar. Não
-para mudar quem eu sou, mas para fazer o que sempre fiz — defender o trabalho —
+para mudar quem eu sou, mas para fazer o que sempre fiz, defender o trabalho,
 em um lugar onde as regras do jogo são escritas.
 
 Este espaço vai contar essa caminhada, com transparência e sem rodeios. Seja
