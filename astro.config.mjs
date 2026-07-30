@@ -3,8 +3,8 @@ import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 
-// IMPORTANTE: troque pelo domínio final da campanha quando for definido.
-// Isso é usado pelo sitemap e pelas tags Open Graph (preview ao compartilhar).
+// Domínio final da campanha (confirmado).
+// Usado pelo sitemap e pelas tags Open Graph (preview ao compartilhar).
 const SITE = "https://eduardoreiner.com.br";
 
 // https://astro.build/config

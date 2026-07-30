@@ -1,0 +1,19 @@
+# .dev.vars.example
+#
+# Variáveis de ambiente para desenvolvimento local com o Wrangler.
+# Para usar: copie este arquivo para ".dev.vars" (que está no .gitignore)
+# e preencha os valores. O Wrangler carrega o .dev.vars automaticamente
+# ao rodar "wrangler dev".
+#
+# ATENÇÃO: hoje o site é 100% estático e NÃO usa NENHUMA variável de ambiente
+# em runtime (o único import.meta.env usado é o DEV, resolvido em build-time).
+# Ou seja: NÃO há nenhum secret a cadastrar no Worker atualmente.
+#
+# Este arquivo existe apenas como ponto de partida para quando/se o projeto
+# passar a precisar de secrets no futuro (ex.: chave de API de e-mail).
+# Nesse dia:
+#   1. adicione a variável abaixo (descomentada) e em .dev.vars com o valor real;
+#   2. cadastre o valor de produção com:  npx wrangler secret put NOME_DA_VARIAVEL
+#
+# Exemplo (comentado — nenhum é usado hoje):
+# EXEMPLO_API_KEY=""

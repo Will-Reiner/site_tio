@@ -10,7 +10,7 @@ export const SITE = {
   primeiroNome: "Eduardo",
   cargo: "Pré-candidato a Deputado Federal",
   profissao: "Auditor Fiscal do Trabalho",
-  // TROCAR pelo domínio final da campanha:
+  // Domínio final da campanha (confirmado):
   url: "https://eduardoreiner.com.br",
   // Descrição usada no SEO e no preview ao compartilhar (Open Graph / WhatsApp):
   descricao:

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Static pre-campaign website for **Eduardo Reiner** (labor inspector / "auditor fiscal do trabalho", pre-candidate for Brazilian federal deputy). Built with **Astro 5** + **Tailwind CSS v4**, output is fully static (`output: "static"`), deployed by uploading the built `dist/` folder to Hostinger's cheapest plan.
+Static pre-campaign website for **Eduardo Reiner** (labor inspector / "auditor fiscal do trabalho", pre-candidate for Brazilian federal deputy). Built with **Astro 5** + **Tailwind CSS v4**, output is fully static (`output: "static"`), deployed to **Cloudflare Workers** (static assets) via `npm run deploy`. See the **Deploy & hosting** section below.
 
 Most content is **provisional draft copy** awaiting final material from the client — marked throughout with `TODO` comments. A core design requirement is that the site must **not look AI-generated** (`README.md` and design tokens reference this explicitly); prefer hand-crafted, opinionated visuals over generic template patterns.
 
@@ -15,9 +15,35 @@ npm install          # first time only
 npm run dev          # dev server at http://localhost:4321 (hot reload)
 npm run build        # generates dist/ (the static site to deploy)
 npm run preview      # serves the built dist/ locally to verify before deploy
+npm run deploy       # astro build + wrangler deploy → publishes to Cloudflare Workers
+npm run cf:preview   # astro build + wrangler dev → preview the Workers runtime locally
 ```
 
 There is no test suite or linter configured. `npm run build` is the verification step — it type-checks content collections and catches broken references.
+
+## Deploy & hosting
+
+Hosted on **Cloudflare Workers** as a static-assets site (no adapter, no SSR: the Worker just serves the built `dist/`). DNS is managed by Cloudflare; the domains are registered at **GoDaddy** with only their nameservers pointed to Cloudflare.
+
+- **Deploy:** `npm run deploy` (= `astro build && wrangler deploy`). Full rebuild + upload; the weekly-edit workflow needs only this one command. Wrangler uploads just the changed files and the new version is live within seconds.
+- **Worker name:** `eduardo-reiner`. Direct URL for testing: `https://eduardo-reiner.williamfilardo.workers.dev` (can be disabled once only the custom domain is used).
+- **Config:** `wrangler.jsonc` at the repo root — `assets.directory: "./dist"`, `not_found_handling: "404-page"` (serves `dist/404.html`). No `main`/Worker script and no `nodejs_compat` (pure static assets).
+- **Auth:** one-time `wrangler login`. Current Cloudflare account: `williamfilardo@gmail.com`.
+- **Secrets:** none today (the site uses no runtime env vars). `.dev.vars.example` documents the convention; `.dev.vars` is git-ignored. To add one: `wrangler secret put NAME` (production) plus a line in `.dev.vars` (local). The Brevo API key will be the first secret.
+
+### Domains & redirects
+
+Canonical domain is the **apex** `eduardoreiner.com.br` (the site's own canonical/OG tags already point there — see `SITE` in `astro.config.mjs`).
+
+| Hostname | Behavior |
+|---|---|
+| `eduardoreiner.com.br` (apex) | Served by the Worker (Cloudflare **Custom Domain**), automatic SSL. |
+| `www.eduardoreiner.com.br` | **301** → apex, via a Cloudflare **Redirect Rule** + a proxied placeholder record (`AAAA 100::`). |
+| `eduardoreiner.com` and `www.eduardoreiner.com` | **301** → `eduardoreiner.com.br`. Separate Cloudflare zone, same redirect pattern. |
+
+Redirect setup lives in the Cloudflare dashboard (DNS records + Redirect Rules), not in the repo. Redirect Rules are per-zone, so the `.com` rules are created in the `.com` zone.
+
+> Adding the planned **Brevo** integration will introduce the project's first server-side endpoint (to keep the API key off the client) and its first secret — a deliberate departure from the current no-server, static-only setup.
 
 ## Architecture
 
@@ -57,10 +83,9 @@ Reusable pieces in `src/components/` (`Botao`, `Header`, `Footer`, `Hero`, `Prop
 
 - **Everything is in Portuguese (pt-BR)** — content, prop names, component names, variable names, comments. `<html lang="pt-BR">`. Match this when adding code.
 - Images go in `src/assets/` and are referenced through Astro's `<Image>` / content-collection `image()` for automatic optimization. `public/` is only for raw passthrough files (`favicon.svg`, `robots.txt`, `og.jpg`).
-- When the **final domain** is set, update it in **three places**: `astro.config.mjs` (`SITE`), `src/data/site.ts` (`url`), and `public/robots.txt`.
+- The final domain is **`eduardoreiner.com.br`**, set in **three places**: `astro.config.mjs` (`SITE`), `src/data/site.ts` (`url`), and `public/robots.txt`. If it ever changes, update all three.
 - Pre-campaign legal nuance: the donation CTA label/behavior should be reviewed (the code favors "Quero apoiar" over "Doar" before official candidacy) — don't silently change this framing.
 
 ## Notes
 
-- `prompt2.md` is a running list of client-requested changes (in Portuguese) — useful context for current work in progress.
-- Repo is **not** under git yet; there's no remote/CI configured.
+- Repo is under git on branch `main`, remote `origin` = `https://github.com/Will-Reiner/site_tio.git`. No CI configured — deploys are run manually with `npm run deploy`.

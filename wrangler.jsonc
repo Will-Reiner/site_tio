@@ -1,0 +1,18 @@
+{
+  // Configuração do Cloudflare Workers para servir o site ESTÁTICO.
+  // O site é 100% estático (output: "static" no astro.config.mjs), então
+  // NÃO há adapter nem script de Worker: o Workers apenas serve os arquivos
+  // gerados em dist/ como "static assets".
+  //
+  // Deploy (feito por você, quando quiser):  npm run deploy
+  // Preview local do comportamento do Workers:  npm run cf:preview
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "eduardo-reiner",
+  "compatibility_date": "2026-07-23",
+  "assets": {
+    // Pasta de build do Astro que será publicada.
+    "directory": "./dist",
+    // Usa o dist/404.html (gerado por src/pages/404.astro) para rotas inexistentes.
+    "not_found_handling": "404-page"
+  }
+}

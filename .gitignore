@@ -17,3 +17,6 @@ npm-debug.log*
 # Variáveis de ambiente
 .env
 .env.production
+
+# Secrets locais do Wrangler (Cloudflare Workers)
+.dev.vars
