@@ -1,11 +1,10 @@
 ---
 import Base from "../../layouts/Base.astro";
 import { MODULOS } from "../../data/manual.ts";
-import { REDES } from "../../data/site.ts";
+import { CTA } from "../../data/site.ts";
 
-const instagram =
-  REDES.find((r) => r.rede === "instagram")?.href ??
-  "https://instagram.com/eduardo.reiner";
+// Conversa direta (DM) no Instagram — destino do "Não encontrei minha dúvida".
+const instagram = CTA.instagram.href;
 
 // Estrutura enxuta que o app consome no cliente.
 const dados = MODULOS.map((m) => ({
@@ -25,17 +24,17 @@ const dados = MODULOS.map((m) => ({
 ---
 
 <Base
-  title="Manual de Direitos Trabalhistas"
-  description="Manual interativo de direitos trabalhistas por Eduardo Reiner."
+  title="Guia de Direitos Trabalhistas"
+  description="Guia interativo de direitos trabalhistas por Eduardo Reiner."
   noindex={true}
 >
   <section class="mx-auto max-w-3xl px-5 pt-8 lg:px-8">
-    <h1 class="sr-only">Manual de Direitos Trabalhistas</h1>
+    <h1 class="sr-only">Guia de Direitos Trabalhistas</h1>
     <p
       class="inline-flex items-center gap-2 font-display text-xs font-bold uppercase tracking-[0.2em] text-rosa-escuro"
     >
       <span class="h-px w-6 bg-rosa"></span>
-      Manual de Direitos Trabalhistas
+      Guia de Direitos Trabalhistas
     </p>
   </section>
 
@@ -45,7 +44,7 @@ const dados = MODULOS.map((m) => ({
 
     <noscript>
       <p class="rounded-2xl border-2 border-tinta bg-creme p-5 text-tinta">
-        Este manual precisa de JavaScript para funcionar. Se preferir, fale
+        Este guia precisa de JavaScript para funcionar. Se preferir, fale
         direto com o Eduardo pelo
         <a class="font-bold underline" href={instagram}>Instagram</a>.
       </p>
@@ -141,7 +140,7 @@ const dados = MODULOS.map((m) => ({
     </div>
   </section>
 
-  <!-- Dados do manual, injetados para o app -->
+  <!-- Dados do guia, injetados para o app -->
   <script type="application/json" id="manual-dados" set:html={JSON.stringify(dados)}
   ></script>
 </Base>
@@ -174,7 +173,7 @@ const dados = MODULOS.map((m) => ({
   const dadosEl = document.getElementById("manual-dados");
   if (root && dadosEl) {
     const dados: Modulo[] = JSON.parse(dadosEl.textContent || "[]");
-    const IG = root.dataset.instagram || "https://instagram.com/eduardo.reiner";
+    const IG = root.dataset.instagram || "https://ig.me/m/eduardo.reiner";
     let moduloCorrente = "";
 
     const esc = (s: string) =>

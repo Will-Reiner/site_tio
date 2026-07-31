@@ -15,12 +15,17 @@ export const HERO = {
     "Sou Eduardo Reiner, auditor fiscal do trabalho. Há quase 20 anos fiscalizo, protejo e conheço de perto a realidade de quem constrói o país. Agora, quero levar essa luta para a Câmara dos Deputados.",
 };
 
-// Vídeo de apresentação na home (antes de "Quem sou eu"). Cole o ID do
-// YouTube — o trecho depois de "v=" na URL — quando o vídeo estiver pronto.
-// Enquanto estiver vazio, a home mostra um espaço reservado para o vídeo.
+// Vídeo de apresentação na home (antes de "Quem sou eu").
+// Duas formas de exibir, nesta ordem de prioridade:
+//   1. `arquivo` — vídeo hospedado no próprio site (arquivo dentro de
+//      `public/`, caminho a partir da raiz). Atenção: a Cloudflare limita
+//      cada arquivo estático a 25 MiB.
+//   2. `id` — ID do vídeo no YouTube (o trecho depois de "v=" na URL).
+// Com os dois vazios, a home mostra um espaço reservado para o vídeo.
 export const VIDEO_APRESENTACAO = {
-  id: "", // TODO: ID do vídeo do YouTube
-  titulo: "Eduardo Reiner explica a campanha",
+  arquivo: "/videos/lancamento-pre-campanha.mp4",
+  id: "",
+  titulo: "Lançamento da pré-campanha de Eduardo Reiner",
 };
 
 // Citação de destaque (pull quote).

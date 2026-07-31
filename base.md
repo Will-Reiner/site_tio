@@ -1,5 +1,5 @@
 # Base completa de perguntas, respostas e fontes do app trabalhista
-**Título:** Manual de Direitos Trabalhistas 2026 — Eduardo Reiner
+**Título:** Guia de Direitos Trabalhistas 2026 — Eduardo Reiner
 **Versão:** 2026-07-04-v5-pj-denuncias
 **Total:** 197 perguntas e respostas
 **Aviso:** conteúdo informativo e educativo; não substitui consultoria jurídica individual.

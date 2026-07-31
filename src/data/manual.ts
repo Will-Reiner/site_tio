@@ -1,10 +1,10 @@
 // =====================================================================
-// Base do Manual de Direitos Trabalhistas
+// Base do Guia de Direitos Trabalhistas
 // ---------------------------------------------------------------------
 // Lê e faz o parse de `base.md` (raiz do repo) EM TEMPO DE BUILD. O arquivo
 // `base.md` continua sendo a ÚNICA fonte da verdade das 197 perguntas — este
 // módulo apenas o transforma numa estrutura tipada (módulos → perguntas) que
-// o app do Manual consome. Editou base.md? Rode `npm run build` e o app
+// o app do Guia consome. Editou base.md? Rode `npm run build` e o app
 // atualiza sozinho.
 // =====================================================================
 import { readFileSync } from "node:fs";

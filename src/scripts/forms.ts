@@ -1,7 +1,7 @@
 // =====================================================================
 // Integração dos formulários (LGPD + CRM) — PONTO ÚNICO DE INTEGRAÇÃO
 // ---------------------------------------------------------------------
-// Todos os formulários do site (Manual, Eventos, Lista de presença,
+// Todos os formulários do site (Guia, Eventos, Lista de presença,
 // Contato) passam por aqui. Por enquanto NÃO há CRM/e-mail configurado,
 // então o lead é validado, o consentimento LGPD é registrado (data/hora,
 // origem e versão do texto) e tudo é guardado localmente para não se
@@ -14,7 +14,7 @@
 export const VERSAO_CONSENTIMENTO = "2026-07-lgpd-v1";
 
 export interface RegistroLead {
-  formulario: string; // origem: "manual" | "eventos" | "presenca" | "contato"
+  formulario: string; // origem: "guia" | "eventos" | "presenca" | "contato"
   aceiteLgpd: boolean;
   versaoConsentimento: string;
   dataHora: string; // ISO 8601
@@ -90,7 +90,7 @@ export function ligarFormulario({ form, origem, aoConcluir }: OpcoesLigar): void
   });
 }
 
-// --- Liberação de acesso ao Manual (gate leve por localStorage) ---
+// --- Liberação de acesso ao Guia (gate leve por localStorage) ---
 const CHAVE_MANUAL = "er_manual_liberado";
 
 export function liberarManual(): void {

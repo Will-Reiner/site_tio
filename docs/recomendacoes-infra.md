@@ -58,7 +58,7 @@ All-in-one que cobre quase todo o Brief num só lugar:
 
 - CRM + lista de contatos com etiquetas e segmentação;
 - E-mail marketing **e** transacional (confirmações, envio de certificado);
-- **Automações** (fluxos: acesso ao Manual, confirmação/lembrete de evento, pós-evento, comunidade);
+- **Automações** (fluxos: acesso ao Guia, confirmação/lembrete de evento, pós-evento, comunidade);
 - **Formulários e landing pages embutíveis** (gravam direto no CRM, com opt-in);
 - WhatsApp e SMS;
 - Contatos ilimitados no plano free (300 e-mails/dia); planos pagos acessíveis;
@@ -74,7 +74,7 @@ Outras opções: **Mailchimp** (conhecido, menos foco em BR/LGPD, encarece ao es
 
 ### Como isso se conecta ao site (já preparado no código)
 
-Todos os formulários do site (Manual, Eventos, Lista de presença, Contato) passam por um **ponto
+Todos os formulários do site (Guia, Eventos, Lista de presença, Contato) passam por um **ponto
 único de integração** em `src/scripts/forms.ts` (função `enviarFormulario`/`ligarFormulario`). Hoje
 ele valida, **registra o consentimento LGPD** (origem, data/hora e versão do texto) e guarda o lead
 localmente para não se perder. Quando escolher a ferramenta, há **dois caminhos**:

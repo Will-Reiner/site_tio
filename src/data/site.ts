@@ -21,7 +21,7 @@ export const SITE = {
 export const NAV = [
   { href: "/", label: "Início" },
   { href: "/minha-historia/", label: "Minha História" },
-  { href: "/manual/", label: "Manual Trabalhista" },
+  { href: "/manual/", label: "Guia Trabalhista" },
   { href: "/eventos/", label: "Eventos" },
   { href: "/na-midia/", label: "Na Mídia" },
 ] as const;
@@ -29,12 +29,19 @@ export const NAV = [
 // --- Botões de ação (CTAs) ---
 export const CTA = {
   whatsapp: {
-    // WhatsApp de contato direto — número oficial +55 41 8492-1322.
-    // (Quando o cliente enviar o link da COMUNIDADE — convite chat.whatsapp.com —
-    // criar um CTA separado; por ora este é o canal de conversa direta.)
-    href: "https://wa.me/554184921322",
-    label: "Falar no WhatsApp",
-    labelCurto: "WhatsApp",
+    // Canal (comunidade) oficial no WhatsApp — todos os botões de WhatsApp do
+    // site apontam para cá. Atenção: canal é transmissão, o público não
+    // responde por ele; para conversa direta use `CTA.instagram` (DM).
+    href: "https://whatsapp.com/channel/0029VbCwoCO1XquROusetM31",
+    label: "Entrar na comunidade",
+    labelCurto: "Comunidade",
+  },
+  instagram: {
+    // Link de conversa direta (DM) no Instagram — usado no botão
+    // "Não encontrei minha dúvida" do Guia e onde for preciso falar direto.
+    href: "https://ig.me/m/eduardo.reiner",
+    label: "Falar no Instagram",
+    labelCurto: "Instagram",
   },
   doar: {
     // Apoio via vakinha oficial da campanha.

@@ -1,5 +1,5 @@
 ---
-import { getCollection, render } from "astro:content";
+import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import Hero from "../components/Hero.astro";
 import Marquee from "../components/Marquee.astro";
@@ -19,21 +19,15 @@ import { IMPRENSA } from "../data/imprensa.ts";
 import entrevista from "../assets/eduardo-entrevista.jpeg";
 import audiencia from "../assets/eduardo-audiencia.jpeg";
 
-const propostas = (await getCollection("propostas")).sort(
+const eixos = (await getCollection("propostas")).sort(
   (a, b) => a.data.ordem - b.data.ordem,
 );
-const eixos = await Promise.all(
-  propostas.map(async (p) => {
-    const { Content } = await render(p);
-    return { ...p, Content };
-  }),
-);
 // Cor do topo/número de cada card de luta (hex inline vence o border-tinta).
-const acentoLuta: Record<string, { hex: string; num: string; chip: string }> = {
-  rosa: { hex: "#0b6b4b", num: "text-rosa", chip: "bg-rosa text-creme" },
-  azul: { hex: "#0b57a4", num: "text-azul", chip: "bg-azul text-creme" },
-  ambar: { hex: "#3d6b45", num: "text-ambar-escuro", chip: "bg-ambar-escuro text-creme" },
-  tinta: { hex: "#0a2540", num: "text-tinta", chip: "bg-tinta text-creme" },
+const acentoLuta: Record<string, { hex: string; num: string }> = {
+  rosa: { hex: "#0b6b4b", num: "text-rosa" },
+  azul: { hex: "#0b57a4", num: "text-azul" },
+  ambar: { hex: "#3d6b45", num: "text-ambar-escuro" },
+  tinta: { hex: "#0a2540", num: "text-tinta" },
 };
 const featured = IMPRENSA.find((i) => i.destaque) ?? IMPRENSA[0];
 ---
@@ -51,11 +45,21 @@ const featured = IMPRENSA.find((i) => i.destaque) ?? IMPRENSA[0];
       alinhamento="centro"
       class="mx-auto max-w-2xl"
     />
-    <div class="mt-10 overflow-hidden rounded-3xl border-2 border-tinta shadow-zine">
+    <div class="mt-10 flex justify-center">
       {
-        VIDEO_APRESENTACAO.id ? (
+        VIDEO_APRESENTACAO.arquivo ? (
+          // Vídeo hospedado no próprio site, no formato vertical das redes.
+          <video
+            class="aspect-[9/16] w-full max-w-[20rem] overflow-hidden rounded-3xl border-2 border-tinta bg-tinta shadow-zine"
+            src={VIDEO_APRESENTACAO.arquivo}
+            aria-label={VIDEO_APRESENTACAO.titulo}
+            controls
+            playsinline
+            preload="metadata"
+          />
+        ) : VIDEO_APRESENTACAO.id ? (
           <iframe
-            class="aspect-video w-full"
+            class="aspect-video w-full overflow-hidden rounded-3xl border-2 border-tinta shadow-zine"
             src={`https://www.youtube-nocookie.com/embed/${VIDEO_APRESENTACAO.id}`}
             title={VIDEO_APRESENTACAO.titulo}
             loading="lazy"
@@ -63,10 +67,9 @@ const featured = IMPRENSA.find((i) => i.destaque) ?? IMPRENSA[0];
             allowfullscreen
           />
         ) : (
-          // TODO (vídeo): assim que o vídeo estiver pronto, cole o ID do
-          // YouTube em VIDEO_APRESENTACAO (src/data/conteudo.ts) — este espaço
-          // reservado é substituído automaticamente pelo player.
-          <div class="fundo-azul-degrade relative grid aspect-video place-items-center text-center text-creme">
+          // Espaço reservado: preencha `arquivo` ou `id` em VIDEO_APRESENTACAO
+          // (src/data/conteudo.ts) e o player aparece automaticamente.
+          <div class="fundo-azul-degrade relative grid aspect-video w-full place-items-center overflow-hidden rounded-3xl border-2 border-tinta text-center text-creme shadow-zine">
             <div
               class="halftone pointer-events-none absolute inset-0 opacity-20"
               aria-hidden="true"
@@ -128,7 +131,7 @@ const featured = IMPRENSA.find((i) => i.destaque) ?? IMPRENSA[0];
       class="max-w-2xl"
     />
     <p class="mt-3 max-w-2xl text-tinta/70">
-      Toque em cada bandeira para ler o que eu penso, direto ao ponto.
+      O que eu penso, direto ao ponto.
     </p>
     <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
       {
@@ -136,11 +139,9 @@ const featured = IMPRENSA.find((i) => i.destaque) ?? IMPRENSA[0];
           const c = acentoLuta[p.data.cor] ?? acentoLuta.rosa;
           const num = String(p.data.ordem).padStart(2, "0");
           return (
-            <button
-              type="button"
-              data-abrir-modal={`luta-${p.id}`}
+            <article
               style={`border-top-color:${c.hex}`}
-              class="btn-press group flex flex-col rounded-3xl border-2 border-t-8 border-tinta bg-creme p-6 text-left hover:-translate-y-1 hover:shadow-zine"
+              class="flex flex-col rounded-3xl border-2 border-t-8 border-tinta bg-creme p-6"
             >
               <span
                 class:list={[
@@ -154,62 +155,12 @@ const featured = IMPRENSA.find((i) => i.destaque) ?? IMPRENSA[0];
               <p class="mt-2 flex-1 text-sm leading-relaxed text-tinta/75">
                 {p.data.resumo}
               </p>
-              <span class="mt-4 inline-flex items-center gap-2 font-display text-sm font-bold text-azul-escuro">
-                Ler mais
-                <Icon
-                  name="seta-direita"
-                  size={15}
-                  class="transition-transform group-hover:translate-x-1"
-                />
-              </span>
-            </button>
+            </article>
           );
         })
       }
     </div>
   </section>
-
-  <!-- Pop-ups das lutas -->
-  {
-    eixos.map((p) => {
-      const c = acentoLuta[p.data.cor] ?? acentoLuta.rosa;
-      const num = String(p.data.ordem).padStart(2, "0");
-      const Conteudo = p.Content;
-      return (
-        <dialog id={`luta-${p.id}`} aria-labelledby={`luta-${p.id}-titulo`}>
-          <div class="w-[min(92vw,34rem)] rounded-3xl border-2 border-tinta bg-creme p-6 shadow-zine sm:p-8">
-            <div class="flex items-start justify-between gap-4">
-              <span
-                class:list={[
-                  "grid h-11 w-11 place-items-center rounded-full font-display text-lg font-extrabold",
-                  c.chip,
-                ]}
-              >
-                {num}
-              </span>
-              <button
-                type="button"
-                data-fechar-modal
-                aria-label="Fechar"
-                class="btn-press grid h-9 w-9 shrink-0 place-items-center rounded-full border-2 border-tinta text-tinta"
-              >
-                ✕
-              </button>
-            </div>
-            <h3
-              id={`luta-${p.id}-titulo`}
-              class="mt-4 text-2xl font-bold leading-tight sm:text-3xl"
-            >
-              {p.data.titulo}
-            </h3>
-            <div class="conteudo-md mt-4">
-              <Conteudo />
-            </div>
-          </div>
-        </dialog>
-      );
-    })
-  }
 
   <!-- Citação -->
   <section class="fundo-azul-degrade relative overflow-hidden py-20 sm:py-24">
@@ -267,26 +218,3 @@ const featured = IMPRENSA.find((i) => i.destaque) ?? IMPRENSA[0];
 
   <FaixaCta />
 </Base>
-
-<script>
-  // Abre/fecha os pop-ups nativos (<dialog>) das lutas.
-  document
-    .querySelectorAll<HTMLButtonElement>("[data-abrir-modal]")
-    .forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const id = btn.getAttribute("data-abrir-modal");
-        const dlg = id
-          ? (document.getElementById(id) as HTMLDialogElement | null)
-          : null;
-        dlg?.showModal();
-      });
-    });
-  document
-    .querySelectorAll<HTMLButtonElement>("[data-fechar-modal]")
-    .forEach((b) => b.addEventListener("click", () => b.closest("dialog")?.close()));
-  document.querySelectorAll("dialog").forEach((dlg) => {
-    dlg.addEventListener("click", (e) => {
-      if (e.target === dlg) (dlg as HTMLDialogElement).close();
-    });
-  });
-</script>

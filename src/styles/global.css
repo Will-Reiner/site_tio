@@ -41,7 +41,7 @@
   --color-azul-escuro: #0a3d6b;
 
   /* Vermelho de ação — EXCLUSIVO de botões de mobilização (Apoiar, Acessar
-     Manual, Retirar convite, Entrar na comunidade, Enviar). Nunca como cor de
+     Guia, Retirar convite, Entrar na comunidade, Enviar). Nunca como cor de
      fundo/identidade. */
   --color-acao: #c81e1e;
   --color-acao-escuro: #a81616;
@@ -275,7 +275,7 @@ dialog[open] {
   }
 }
 
-/* Formulários (LGPD, Manual, Eventos, Presença, Contato) */
+/* Formulários (LGPD, Guia, Eventos, Presença, Contato) */
 .rotulo-form {
   display: block;
   margin-bottom: 0.35rem;
