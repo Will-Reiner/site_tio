@@ -1,6 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Icon from "../../components/Icon.astro";
+import Turnstile from "../../components/Turnstile.astro";
 import { EVENTOS } from "../../data/eventos.ts";
 
 // Mapa slug → nome do evento, para o QR Code preencher o campo oculto.
@@ -113,6 +114,8 @@ const eventosMapa = Object.fromEntries(EVENTOS.map((e) => [e.slug, e.nome]));
             >.
           </span>
         </label>
+
+        <Turnstile />
 
         <button
           type="submit"

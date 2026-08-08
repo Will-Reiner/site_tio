@@ -1,6 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Icon from "../../components/Icon.astro";
+import Turnstile from "../../components/Turnstile.astro";
 
 const faixas = [
   "16 a 24 anos",
@@ -180,6 +181,8 @@ const temas = [
               >.
             </span>
           </label>
+
+          <Turnstile />
 
           <button
             type="submit"

@@ -3,17 +3,43 @@
 # Variáveis de ambiente para desenvolvimento local com o Wrangler.
 # Para usar: copie este arquivo para ".dev.vars" (que está no .gitignore)
 # e preencha os valores. O Wrangler carrega o .dev.vars automaticamente
-# ao rodar "wrangler dev".
+# ao rodar "npm run cf:preview" (wrangler dev).
 #
-# ATENÇÃO: hoje o site é 100% estático e NÃO usa NENHUMA variável de ambiente
-# em runtime (o único import.meta.env usado é o DEV, resolvido em build-time).
-# Ou seja: NÃO há nenhum secret a cadastrar no Worker atualmente.
+# Os dois secrets abaixo são usados pelo Worker em worker/index.ts, que
+# atende o POST /api/lead dos formulários do site.
 #
-# Este arquivo existe apenas como ponto de partida para quando/se o projeto
-# passar a precisar de secrets no futuro (ex.: chave de API de e-mail).
-# Nesse dia:
-#   1. adicione a variável abaixo (descomentada) e em .dev.vars com o valor real;
-#   2. cadastre o valor de produção com:  npx wrangler secret put NOME_DA_VARIAVEL
+# Para cadastrar os valores DE PRODUÇÃO (uma vez cada):
+#   npx wrangler secret put BREVO_API_KEY
+#   npx wrangler secret put TURNSTILE_SECRET_KEY
 #
-# Exemplo (comentado — nenhum é usado hoje):
-# EXEMPLO_API_KEY=""
+# Atenção: "npm run dev" (astro dev, porta 4321) NÃO roda o Worker nem lê
+# este arquivo. Para testar o /api/lead de verdade use "npm run cf:preview".
+
+# Chave da API v3 do Brevo.
+# Brevo → menu do topo direito → "SMTP & API" → aba "API Keys" → Generate.
+# Também é daqui que o "node scripts/brevo-setup.mjs" lê a chave.
+BREVO_API_KEY=""
+
+# Secret key do widget Turnstile (o par público dela, a "site key", fica em
+# src/data/site.ts porque aparece no HTML).
+# Cloudflare → Turnstile → Add widget (domínio eduardoreiner.com.br).
+TURNSTILE_SECRET_KEY=""
+
+# COMO TESTAR FORMULÁRIO LOCALMENTE
+# O widget de produção só aceita o domínio eduardoreiner.com.br: em
+# localhost ele falha com o erro 110200 e não gera token, então o envio é
+# recusado com {"erro":"turnstile"}. Para testar de ponta a ponta na sua
+# máquina, use as chaves de TESTE da Cloudflare, que aprovam qualquer um:
+#
+#   1. neste arquivo:  TURNSTILE_SECRET_KEY="1x0000000000000000000000000000000AA"
+#   2. num arquivo .env na raiz (também git-ignored):
+#        PUBLIC_TURNSTILE_SITEKEY=1x00000000000000000000AA
+#   3. npm run cf:preview
+#
+# Sem o .env, o site usa a site key real (padrão em src/data/site.ts), que é
+# o que vai para produção. Nunca troque a chave direto no site.ts: seria
+# fácil commitar a chave de teste e deixar o site sem proteção.
+
+# --- Não são secrets ---
+# Os IDs das listas do Brevo ficam em "vars" no wrangler.jsonc, versionados,
+# porque não são informação sensível.

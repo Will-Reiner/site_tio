@@ -2,8 +2,6 @@
 import Base from "../../layouts/Base.astro";
 import CabecalhoPagina from "../../components/CabecalhoPagina.astro";
 import { SITE } from "../../data/site.ts";
-
-const atualizacao = "julho de 2026";
 ---
 
 <Base
@@ -17,13 +15,6 @@ const atualizacao = "julho de 2026";
   />
 
   <section class="mx-auto max-w-3xl px-5 py-12 lg:px-8 lg:py-16">
-    <div
-      class="mb-8 rounded-2xl border-2 border-azul/30 bg-ambar px-4 py-3 text-sm leading-relaxed text-tinta"
-    >
-      <strong>Texto provisório.</strong> Esta política ainda passará por revisão jurídica
-      antes da publicação definitiva. Última atualização: {atualizacao}.
-    </div>
-
     <div class="conteudo-md">
       <h3>1. Quem é o responsável pelos dados</h3>
       <p>
@@ -39,8 +30,8 @@ const atualizacao = "julho de 2026";
         formulários (por exemplo: nome, e-mail, WhatsApp, cidade/estado,
         profissão, faixa etária, temas de interesse e, na lista de presença de
         eventos, dados necessários para emissão de certificado). Registramos
-        também a data, o horário, a origem do cadastro e a versão do texto de
-        consentimento aceito.
+        também a data, o horário, o endereço IP, a origem do cadastro e a versão
+        do texto de consentimento aceito, como comprovação do seu aceite.
       </p>
 
       <h3>3. Para que usamos os dados</h3>
@@ -64,9 +55,13 @@ const atualizacao = "julho de 2026";
 
       <h3>5. Compartilhamento</h3>
       <p>
-        Podemos utilizar ferramentas de CRM e de envio de e-mail para operar
-        essas comunicações. Não vendemos seus dados. Eventuais fornecedores
-        atuam como operadores, seguindo esta política e a legislação aplicável.
+        Não vendemos seus dados. Utilizamos o <strong>Brevo</strong> como
+        ferramenta de CRM e de envio de e-mail, e a <strong>Cloudflare</strong>
+        para hospedar o site e proteger os formulários contra robôs. Ambas atuam
+        como operadoras, tratando os dados apenas para as finalidades desta
+        política. Esses fornecedores podem armazenar e processar os dados fora do
+        Brasil, inclusive na União Europeia, em países com grau de proteção
+        adequado, nos termos do art. 33 da LGPD.
       </p>
 
       <h3>6. Seus direitos</h3>

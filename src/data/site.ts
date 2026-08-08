@@ -17,6 +17,32 @@ export const SITE = {
     "Eduardo Reiner, auditor fiscal do trabalho, é pré-candidato a deputado federal. Conheça a história, as lutas e faça parte.",
 };
 
+// --- Turnstile (proteção anti-robô dos formulários) ---
+// A "site key" é PÚBLICA de propósito: ela aparece no HTML da página.
+// O par dela, a "secret key", é secret do Worker e NUNCA entra no git:
+//   npx wrangler secret put TURNSTILE_SECRET_KEY
+// Widget do domínio eduardoreiner.com.br, modo "Managed" (criado em
+// 2026-08-07). Ele SÓ funciona nesse domínio: em localhost a Cloudflare
+// devolve o erro 110200 e nenhum token é gerado. Isso é proposital, e não
+// vale adicionar localhost aos domínios do widget (qualquer um poderia
+// gerar token válido para a sua site key rodando um site na própria
+// máquina). Para testar formulário local, use as chaves de TESTE via .env
+// e .dev.vars — ver .dev.vars.example.
+export const TURNSTILE_SITEKEY =
+  import.meta.env.PUBLIC_TURNSTILE_SITEKEY || "0x4AAAAAAEJqgV7ac51td-7X";
+
+// Rede de segurança: as chaves de teste da Cloudflare começam com "1x" e
+// aprovam qualquer robô. Se um build sair com ela (porque o .env de teste
+// ficou na pasta), o aviso aparece no terminal do "npm run build" e do
+// "npm run deploy".
+if (TURNSTILE_SITEKEY.startsWith("1x")) {
+  console.warn(
+    "\n  ATENÇÃO: este build está usando a SITE KEY DE TESTE do Turnstile,\n" +
+      "  que aprova qualquer robô. Veio do arquivo .env na raiz do projeto.\n" +
+      "  NÃO faça deploy assim: apague o .env e rode o build de novo.\n",
+  );
+}
+
 // --- Navegação principal ---
 export const NAV = [
   { href: "/", label: "Início" },

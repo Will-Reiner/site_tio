@@ -1,0 +1,52 @@
+---
+// Proteção anti-robô dos formulários (Turnstile, da Cloudflare).
+//
+// Use SEMPRE dentro do <form>: o widget injeta o campo escondido
+// `cf-turnstile-response`, que o forms.ts lê e manda para o /api/lead.
+// Junto com ele vai o campo isca (honeypot), que humano nenhum enxerga.
+//
+// `interaction-only` deixa o widget invisível enquanto o visitante parecer
+// gente; ele só aparece se a Cloudflare quiser confirmar. Assim o layout
+// do formulário não muda no caso normal.
+import { TURNSTILE_SITEKEY } from "../data/site.ts";
+
+interface Props {
+  /** Classes extras para o contêiner do widget (espaçamento, etc.). */
+  class?: string;
+}
+const { class: classe = "" } = Astro.props;
+---
+
+{/* Campo isca: robô preenche tudo que encontra, gente não vê. O Worker
+    descarta o envio silenciosamente quando ele vem preenchido. O nome do
+    campo é proposital: não casa com nenhuma categoria de autopreenchimento
+    do navegador, senão o Chrome preencheria sozinho e derrubaria leads
+    legítimos. Precisa bater com CAMPO_ISCA em src/scripts/forms.ts. */}
+<div aria-hidden="true" class="hidden">
+  <label>
+    Não preencha este campo
+    <input type="text" name="confirmacao_extra" tabindex="-1" autocomplete="off" />
+  </label>
+</div>
+
+<div
+  class:list={["cf-turnstile empty:hidden", classe]}
+  data-sitekey={TURNSTILE_SITEKEY}
+  data-language="pt-br"
+  data-appearance="interaction-only"
+  data-theme="light"
+>
+</div>
+
+{/* Mostrado pelo forms.ts quando a Cloudflare pede confirmação e a pessoa
+    envia antes de clicar. Sem isso, o cadastro dela era descartado em
+    silêncio: o Worker recusava e ela seguia achando que deu certo. */}
+<p data-turnstile-aviso hidden class="text-sm font-semibold text-acao">
+  Confirme acima que você não é um robô e envie de novo.
+</p>
+
+<script
+  is:inline
+  async
+  defer
+  src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>

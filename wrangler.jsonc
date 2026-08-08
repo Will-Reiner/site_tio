@@ -1,18 +1,38 @@
 {
-  // Configuração do Cloudflare Workers para servir o site ESTÁTICO.
-  // O site é 100% estático (output: "static" no astro.config.mjs), então
-  // NÃO há adapter nem script de Worker: o Workers apenas serve os arquivos
-  // gerados em dist/ como "static assets".
+  // Configuração do Cloudflare Workers.
+  //
+  // O site continua ESTÁTICO (output: "static" no astro.config.mjs, sem
+  // adapter): o Workers serve os arquivos de dist/ como "static assets".
+  // A única exceção é /api/*, que roda o Worker de worker/index.ts para
+  // falar com o Brevo sem expor a chave de API no navegador.
   //
   // Deploy (feito por você, quando quiser):  npm run deploy
-  // Preview local do comportamento do Workers:  npm run cf:preview
+  // Preview local COM o Worker:              npm run cf:preview
+  //
+  // Secrets (não entram no git — ver .dev.vars.example):
+  //   npx wrangler secret put BREVO_API_KEY
+  //   npx wrangler secret put TURNSTILE_SECRET_KEY
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "eduardo-reiner",
   "compatibility_date": "2026-07-23",
+  "main": "./worker/index.ts",
   "assets": {
     // Pasta de build do Astro que será publicada.
     "directory": "./dist",
+    // Permite ao Worker devolver arquivos estáticos (rede de segurança).
+    "binding": "ASSETS",
     // Usa o dist/404.html (gerado por src/pages/404.astro) para rotas inexistentes.
-    "not_found_handling": "404-page"
+    "not_found_handling": "404-page",
+    // O Worker roda ANTES dos arquivos estáticos só nestas rotas. Todo o
+    // resto do site é servido direto do dist/, sem passar por código.
+    "run_worker_first": ["/api/*"]
+  },
+  "vars": {
+    // IDs das listas do Brevo (não são segredo). Criadas em 2026-08-07 por
+    // `node scripts/brevo-setup.mjs --criar-listas`, que reimprime os
+    // números a qualquer momento.
+    "BREVO_LISTA_GUIA": "3",
+    "BREVO_LISTA_EVENTOS": "4",
+    "BREVO_LISTA_PRESENCA": "5"
   }
 }
